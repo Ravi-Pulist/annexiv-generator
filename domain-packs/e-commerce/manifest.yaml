@@ -1,0 +1,108 @@
+domain:
+  id: "e-commerce"
+  name: "E-Commerce & Retail"
+  description: "Online retail, marketplace, product catalog, cart/checkout, order management"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["shopify", "magento", "woocommerce", "stripe", "cart", "checkout", "catalog"]
+    medium_signal: ["product", "order", "sku", "pricing", "discount", "coupon", "wishlist"]
+    low_signal: ["store", "shop", "retail", "merchant", "customer"]
+  file_patterns: ["**/cart/**", "**/checkout/**", "**/catalog/**", "**/products/**"]
+  dependency_patterns: ["shopify-*", "@shopify/*", "medusa-*", "saleor", "commercejs"]
+  config_signals:
+    domain_focus: ["e-commerce", "retail", "marketplace", "online-store"]
+    regulatory: ["pci-dss", "gdpr", "ccpa", "ada-wcag"]
+
+regulations:
+  - id: "pci-dss-ecom"
+    name: "PCI DSS (E-Commerce)"
+    description: "Payment card security for online transactions"
+    mandatory: true
+  - id: "gdpr-ecom"
+    name: "GDPR (E-Commerce)"
+    description: "EU data protection for customer PII"
+    mandatory: false
+  - id: "ccpa"
+    name: "California Consumer Privacy Act"
+    description: "California privacy rights"
+    mandatory: false
+
+integration_targets:
+  - id: "shopify"
+    name: "Shopify"
+    protocols: ["graphql-api", "rest-api", "webhooks"]
+    description: "E-commerce platform"
+  - id: "stripe-ecom"
+    name: "Stripe"
+    protocols: ["rest-api", "webhooks"]
+    description: "Payment processing"
+
+sensitive_data:
+  classification: "pii"
+  patterns:
+    - name: "credit-card"
+      description: "Credit card PAN"
+      regex: "\\b(?:\\d{4}[- ]?){3}\\d{4}\\b"
+      severity: critical
+      action: block
+    - name: "customer-email"
+      description: "Customer email addresses in bulk"
+      field_names: ["customer_email", "buyer_email"]
+      severity: medium
+      action: log
+
+rules:
+  - id: "pci-tokenize"
+    text: "Never handle raw card numbers — delegate to processor tokenization"
+    applies_to: ["all"]
+    severity: mandatory
+  - id: "gdpr-consent"
+    text: "Collect explicit consent before processing personal data for marketing"
+    applies_to: ["soren-backend", "milo-frontend"]
+    severity: recommended
+
+skills:
+  - id: "product-catalog-design"
+    name: "Product Catalog Design"
+    file: "skills/product-catalog-design/SKILL.md"
+    description: "Product models, variants, attributes, categories, search, faceting"
+    relevance_keywords: ["catalog", "product", "variant", "attribute", "facet", "search"]
+    recommended_agents: ["winston-architect", "anya-data"]
+  - id: "cart-checkout-patterns"
+    name: "Cart & Checkout Patterns"
+    file: "skills/cart-checkout-patterns/SKILL.md"
+    description: "Shopping cart, checkout flow, payment integration, order creation"
+    relevance_keywords: ["cart", "checkout", "payment", "order", "coupon"]
+    recommended_agents: ["soren-backend", "milo-frontend"]
+  - id: "order-management"
+    name: "Order Management"
+    file: "skills/order-management/SKILL.md"
+    description: "Order lifecycle, fulfillment, returns, refunds, split shipments"
+    relevance_keywords: ["order", "fulfillment", "return", "refund", "shipment"]
+    recommended_agents: ["soren-backend"]
+  - id: "marketplace-patterns"
+    name: "Marketplace Patterns"
+    file: "skills/marketplace-patterns/SKILL.md"
+    description: "Multi-vendor marketplace, seller onboarding, commission, disputes"
+    relevance_keywords: ["marketplace", "vendor", "seller", "commission", "multi-vendor"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "ecommerce-seo"
+    name: "E-Commerce SEO & Performance"
+    file: "skills/ecommerce-seo/SKILL.md"
+    description: "Structured data, Open Graph, Core Web Vitals, image optimization"
+    relevance_keywords: ["seo", "structured-data", "performance", "core-web-vitals"]
+    recommended_agents: ["milo-frontend"]
+  - id: "pricing-promotions"
+    name: "Pricing & Promotions"
+    file: "skills/pricing-promotions/SKILL.md"
+    description: "Dynamic pricing, discount rules, coupon engines, bundle pricing"
+    relevance_keywords: ["pricing", "discount", "coupon", "promotion", "bundle"]
+    recommended_agents: ["soren-backend", "anya-data"]
+  - id: "ecommerce-analytics"
+    name: "E-Commerce Analytics"
+    file: "skills/ecommerce-analytics/SKILL.md"
+    description: "Conversion funnels, cohort analysis, LTV, cart abandonment"
+    relevance_keywords: ["analytics", "conversion", "funnel", "ltv", "abandonment"]
+    recommended_agents: ["anya-data"]

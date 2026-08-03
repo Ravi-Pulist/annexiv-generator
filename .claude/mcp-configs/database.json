@@ -1,0 +1,19 @@
+{
+  "_description": "Database MCP Servers — PostgreSQL and SQLite schema exploration and queries",
+  "_used_by": ["anya-data", "lena-integration", "soren-backend"],
+  "_requires": ["Database connection string or file path"],
+  "_note": "Uncomment the database type you need. Configure connection in env vars.",
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_URL": "${DATABASE_URL}"
+      }
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "${SQLITE_DB_PATH}"]
+    }
+  }
+}

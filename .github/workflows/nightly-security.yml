@@ -1,0 +1,82 @@
+# Nightly Security Scan — Kai runs a full security analysis on the codebase
+# Scheduled to run daily at 2am UTC
+#
+# TEMPLATE — customize schedule and scope for your project.
+
+name: Nightly Security Scan
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2am UTC
+  workflow_dispatch:       # Manual trigger
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  security-scan:
+    name: Kai — Nightly Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run dependency audit
+        id: dep-audit
+        continue-on-error: true
+        run: |
+          if [ -f package.json ]; then
+            npm audit --json > audit-results.json 2>/dev/null || true
+          fi
+
+      - name: Run security scan
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # Gather source file list
+          FILES=$(find src/ lib/ -type f \( -name "*.js" -o -name "*.ts" -o -name "*.py" -o -name "*.go" \) 2>/dev/null | head -50)
+          AUDIT=$(cat audit-results.json 2>/dev/null || echo "No audit data")
+
+          claude -p "You are Kai (Security Engineer). Perform a nightly security scan.
+
+          Source files to review:
+          $FILES
+
+          Dependency audit results:
+          $AUDIT
+
+          Tasks:
+          1. Check for hardcoded secrets, API keys, credentials in source files
+          2. Review dependency audit for critical/high CVEs
+          3. Check for common vulnerability patterns (injection, auth bypass, data exposure)
+          4. Summarize findings with severity and remediation
+
+          Output a structured security report." \
+            --output-format json 2>/dev/null | jq -r '.result // .text // "Scan failed"' > security-report.md
+
+      - name: Create issue if findings
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('security-report.md', 'utf8');
+
+            // Only create issue if there are findings
+            if (report.includes('critical') || report.includes('high') || report.includes('CRITICAL') || report.includes('HIGH')) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Security] Nightly scan findings — ${new Date().toISOString().split('T')[0]}`,
+                body: `## Nightly Security Scan (Kai)\n\n${report}`,
+                labels: ['security', 'automated']
+              });
+            }

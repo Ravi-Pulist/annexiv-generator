@@ -1,0 +1,15 @@
+{
+  "_description": "Linear MCP Server — Issue tracking, project management, sprint boards",
+  "_used_by": ["nadia-pm", "derek-sm", "maya-analyst"],
+  "_requires": ["LINEAR_API_KEY"],
+  "_note": "Enables Nadia to manage roadmap, Derek to sync sprints, Maya to pull requirements from tickets",
+  "mcpServers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-linear"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+# Release Compliance Check — Vera audits compliance before release
+# Triggered on release creation or manually
+#
+# TEMPLATE — customize for your regulatory requirements.
+
+name: Release Compliance Audit
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag to audit'
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  compliance-audit:
+    name: Vera — Compliance Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run compliance audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TAG="${{ github.event.inputs.release_tag || github.event.release.tag_name || 'HEAD' }}"
+
+          # Gather compliance context
+          DOMAIN_CONFIG=""
+          if [ -f .planning/skill-config.yaml ]; then
+            DOMAIN_CONFIG=$(cat .planning/skill-config.yaml)
+          fi
+
+          COMPLIANCE_DOCS=""
+          if [ -d .planning/compliance ]; then
+            COMPLIANCE_DOCS=$(find .planning/compliance -name "*.md" -exec cat {} \;)
+          fi
+
+          claude -p "You are Vera (Compliance Analyst). Conduct a release compliance audit for version $TAG.
+
+          Domain configuration:
+          $DOMAIN_CONFIG
+
+          Existing compliance documentation:
+          $COMPLIANCE_DOCS
+
+          Tasks:
+          1. Verify all domain-specific regulatory requirements are met
+          2. Check data handling compliance (encryption, access control, audit trails)
+          3. Verify Rule 5: no compliance requirements deferred as tech debt
+          4. Generate a compliance certificate or list blocking issues
+
+          Output a structured compliance audit report with COMPLIANT or NON_COMPLIANT verdict." \
+            --output-format json 2>/dev/null | jq -r '.result // .text // "Audit failed"' > compliance-report.md
+
+      - name: Create compliance issue if non-compliant
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('compliance-report.md', 'utf8');
+            const tag = '${{ github.event.inputs.release_tag || github.event.release.tag_name || "HEAD" }}';
+
+            if (report.includes('NON_COMPLIANT') || report.includes('BLOCKED')) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Compliance] Release ${tag} — non-compliant findings`,
+                body: `## Release Compliance Audit (Vera)\n\n**Release:** ${tag}\n\n${report}`,
+                labels: ['compliance', 'blocking', 'automated']
+              });
+            }

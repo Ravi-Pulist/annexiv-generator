@@ -1,0 +1,146 @@
+domain:
+  id: "fintech"
+  name: "Financial Technology"
+  description: "Banking, payments, trading, lending, and financial data processing"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["pci-dss", "swift", "ach", "plaid", "stripe", "sox", "kyc", "aml", "ledger"]
+    medium_signal: ["payment", "transaction", "account", "balance", "transfer", "settlement"]
+    low_signal: ["finance", "banking", "money", "currency", "credit"]
+  file_patterns: ["**/payments/**", "**/ledger/**", "**/transactions/**"]
+  dependency_patterns: ["stripe", "plaid-*", "@stripe/*", "braintree", "dwolla"]
+  config_signals:
+    domain_focus: ["payments", "banking", "trading", "lending", "fintech"]
+    regulatory: ["pci-dss", "sox", "kyc-aml", "gdpr"]
+
+regulations:
+  - id: "pci-dss"
+    name: "Payment Card Industry Data Security Standard"
+    description: "Security standards for organizations handling credit card data"
+    mandatory: true
+  - id: "sox"
+    name: "Sarbanes-Oxley Act"
+    description: "Financial reporting and internal controls for public companies"
+    mandatory: false
+  - id: "kyc-aml"
+    name: "Know Your Customer / Anti-Money Laundering"
+    description: "Customer identity verification and suspicious activity monitoring"
+    mandatory: true
+  - id: "gdpr-financial"
+    name: "GDPR (Financial Data)"
+    description: "EU data protection for financial personal data"
+    mandatory: false
+
+integration_targets:
+  - id: "stripe"
+    name: "Stripe"
+    protocols: ["rest-api", "webhooks"]
+    description: "Payment processing platform"
+  - id: "plaid"
+    name: "Plaid"
+    protocols: ["rest-api"]
+    description: "Financial data aggregation"
+  - id: "swift-network"
+    name: "SWIFT Network"
+    protocols: ["swift-mt", "swift-mx", "iso-20022"]
+    description: "International interbank messaging"
+
+sensitive_data:
+  classification: "pci"
+  patterns:
+    - name: "credit-card"
+      description: "Credit/debit card numbers"
+      regex: "\\b(?:\\d{4}[- ]?){3}\\d{4}\\b"
+      severity: critical
+      action: block
+    - name: "cvv"
+      description: "Card verification value"
+      field_names: ["cvv", "cvc", "cvv2", "security_code"]
+      severity: critical
+      action: block
+    - name: "account-number"
+      description: "Bank account number"
+      field_names: ["account_number", "accountNumber", "routing_number", "iban"]
+      severity: high
+      action: warn
+    - name: "ssn-financial"
+      description: "SSN in financial context"
+      regex: "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+      severity: critical
+      action: block
+
+rules:
+  - id: "pci-no-pan-storage"
+    text: "Never store full PAN — use tokenization via payment processor"
+    applies_to: ["all"]
+    severity: mandatory
+  - id: "pci-encryption"
+    text: "Cardholder data must be encrypted at rest and in transit per PCI DSS Req 3 & 4"
+    applies_to: ["soren-backend", "ravi-devops"]
+    severity: mandatory
+  - id: "sox-audit-trail"
+    text: "Financial transactions must have immutable audit trails for SOX compliance"
+    applies_to: ["soren-backend", "anya-data"]
+    severity: mandatory
+  - id: "kyc-verification"
+    text: "Customer identity must be verified before enabling financial transactions"
+    applies_to: ["soren-backend"]
+    severity: mandatory
+
+skills:
+  - id: "payment-processing"
+    name: "Payment Processing"
+    file: "skills/payment-processing/SKILL.md"
+    description: "Payment gateway integration, tokenization, recurring billing, refunds, disputes"
+    relevance_keywords: ["payment", "charge", "refund", "subscription", "billing"]
+    recommended_agents: ["soren-backend", "lena-integration"]
+  - id: "pci-dss-compliance"
+    name: "PCI DSS Compliance"
+    file: "skills/pci-dss-compliance/SKILL.md"
+    description: "PCI DSS requirements, SAQ selection, network segmentation, cardholder data"
+    relevance_keywords: ["pci", "cardholder", "pan", "tokenization", "segmentation"]
+    recommended_agents: ["kai-security", "vera-compliance", "ravi-devops"]
+  - id: "financial-data-modeling"
+    name: "Financial Data Modeling"
+    file: "skills/financial-data-modeling/SKILL.md"
+    description: "Double-entry ledger, transaction models, account hierarchies, reconciliation"
+    relevance_keywords: ["ledger", "double-entry", "account", "reconciliation", "journal"]
+    recommended_agents: ["anya-data", "winston-architect"]
+  - id: "kyc-aml-patterns"
+    name: "KYC/AML Patterns"
+    file: "skills/kyc-aml-patterns/SKILL.md"
+    description: "Identity verification, document checks, sanctions screening, suspicious activity"
+    relevance_keywords: ["kyc", "aml", "identity-verification", "sanctions", "suspicious"]
+    recommended_agents: ["soren-backend", "vera-compliance"]
+  - id: "banking-api-design"
+    name: "Banking API Design"
+    file: "skills/banking-api-design/SKILL.md"
+    description: "Open Banking APIs, PSD2, account info, payment initiation, consent"
+    relevance_keywords: ["open-banking", "psd2", "consent", "account-info", "payment-initiation"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "financial-messaging"
+    name: "Financial Messaging Standards"
+    file: "skills/financial-messaging/SKILL.md"
+    description: "SWIFT MT/MX, ISO 20022, FIX protocol, ACH/NACHA file formats"
+    relevance_keywords: ["swift", "iso-20022", "fix", "ach", "nacha", "mt103"]
+    recommended_agents: ["lena-integration", "anya-data"]
+  - id: "fraud-detection-patterns"
+    name: "Fraud Detection Patterns"
+    file: "skills/fraud-detection-patterns/SKILL.md"
+    description: "Transaction monitoring, velocity checks, anomaly detection, risk scoring"
+    relevance_keywords: ["fraud", "anomaly", "velocity", "risk-score", "monitoring"]
+    recommended_agents: ["soren-backend", "kai-security"]
+  - id: "sox-controls"
+    name: "SOX Controls"
+    file: "skills/sox-controls/SKILL.md"
+    description: "Internal controls, audit trails, segregation of duties, financial reporting"
+    relevance_keywords: ["sox", "internal-controls", "audit-trail", "segregation"]
+    recommended_agents: ["vera-compliance", "anya-data"]
+  - id: "fintech-devops"
+    name: "Fintech DevOps"
+    file: "skills/fintech-devops/SKILL.md"
+    description: "PCI-compliant infrastructure, HSM integration, key management, audit logging"
+    relevance_keywords: ["pci-infra", "hsm", "key-management", "compliant-hosting"]
+    recommended_agents: ["ravi-devops"]

@@ -1,0 +1,107 @@
+domain:
+  id: "saas"
+  name: "Software as a Service"
+  description: "Multi-tenant SaaS applications, subscription management, tenant isolation"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["multi-tenant", "tenant", "subscription", "saas", "soc2", "sso"]
+    medium_signal: ["plan", "tier", "onboarding", "workspace", "organization", "billing"]
+    low_signal: ["user", "team", "admin", "dashboard", "settings"]
+  file_patterns: ["**/tenant/**", "**/subscription/**", "**/billing/**"]
+  dependency_patterns: ["stripe", "auth0", "@auth0/*", "clerk", "workos"]
+  config_signals:
+    domain_focus: ["saas", "multi-tenant", "platform", "b2b-saas"]
+    regulatory: ["soc2", "gdpr", "ccpa"]
+
+regulations:
+  - id: "soc2"
+    name: "SOC 2 Type II"
+    description: "Trust service criteria"
+    mandatory: false
+    certification:
+      name: "SOC 2 Type II Audit"
+      timeline_typical: "3-6 months"
+  - id: "gdpr-saas"
+    name: "GDPR (SaaS)"
+    description: "EU data protection"
+    mandatory: false
+
+integration_targets:
+  - id: "auth0"
+    name: "Auth0 / Okta"
+    protocols: ["oidc", "saml", "scim"]
+    description: "Identity provider"
+  - id: "stripe-saas"
+    name: "Stripe Billing"
+    protocols: ["rest-api", "webhooks"]
+    description: "Subscription billing"
+
+sensitive_data:
+  classification: "tenant-data"
+  patterns:
+    - name: "cross-tenant-leak"
+      description: "Tenant ID mismatch in queries"
+      field_names: ["tenant_id", "org_id", "workspace_id"]
+      severity: critical
+      action: warn
+    - name: "api-keys"
+      description: "API keys or secrets in code"
+      regex: "(?:api[_-]?key|secret|token)\\s*[:=]\\s*['\"][a-zA-Z0-9]{20,}['\"]"
+      severity: critical
+      action: block
+
+rules:
+  - id: "tenant-isolation"
+    text: "Every database query MUST be scoped to tenant_id — no cross-tenant data access"
+    applies_to: ["soren-backend", "anya-data"]
+    severity: mandatory
+  - id: "soc2-logging"
+    text: "All auth and data access events must be logged for SOC 2 audit"
+    applies_to: ["soren-backend", "ravi-devops"]
+    severity: mandatory
+
+skills:
+  - id: "multi-tenancy-patterns"
+    name: "Multi-Tenancy Patterns"
+    file: "skills/multi-tenancy-patterns/SKILL.md"
+    description: "Tenant isolation, shared vs dedicated, row-level security"
+    relevance_keywords: ["multi-tenant", "tenant", "isolation", "rls", "schema-per-tenant"]
+    recommended_agents: ["winston-architect", "soren-backend", "anya-data"]
+  - id: "subscription-billing"
+    name: "Subscription & Billing"
+    file: "skills/subscription-billing/SKILL.md"
+    description: "Subscription lifecycle, usage metering, invoicing, dunning"
+    relevance_keywords: ["subscription", "billing", "metering", "invoice", "dunning"]
+    recommended_agents: ["soren-backend"]
+  - id: "sso-identity"
+    name: "SSO & Identity Management"
+    file: "skills/sso-identity/SKILL.md"
+    description: "OIDC, SAML, SCIM provisioning, SSO, MFA, session management"
+    relevance_keywords: ["sso", "saml", "oidc", "scim", "mfa", "identity"]
+    recommended_agents: ["soren-backend", "kai-security"]
+  - id: "soc2-compliance"
+    name: "SOC 2 Compliance"
+    file: "skills/soc2-compliance/SKILL.md"
+    description: "Trust service criteria mapping, evidence collection, controls"
+    relevance_keywords: ["soc2", "trust-service", "controls", "evidence", "audit"]
+    recommended_agents: ["vera-compliance", "kai-security"]
+  - id: "saas-onboarding"
+    name: "SaaS Onboarding Patterns"
+    file: "skills/saas-onboarding/SKILL.md"
+    description: "Tenant provisioning, trial management, activation flows"
+    relevance_keywords: ["onboarding", "provisioning", "trial", "activation", "migration"]
+    recommended_agents: ["soren-backend", "milo-frontend"]
+  - id: "feature-flags-plans"
+    name: "Feature Flags & Plan Management"
+    file: "skills/feature-flags-plans/SKILL.md"
+    description: "Feature gating, plan-based access, entitlements, usage limits"
+    relevance_keywords: ["feature-flag", "plan", "entitlement", "usage-limit", "gating"]
+    recommended_agents: ["soren-backend", "milo-frontend"]
+  - id: "saas-analytics"
+    name: "SaaS Analytics & Metrics"
+    file: "skills/saas-analytics/SKILL.md"
+    description: "MRR/ARR, churn, NPS, product analytics, cohort analysis"
+    relevance_keywords: ["mrr", "churn", "nps", "analytics", "cohort", "usage"]
+    recommended_agents: ["anya-data"]

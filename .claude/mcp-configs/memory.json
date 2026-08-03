@@ -1,0 +1,12 @@
+{
+  "_description": "Memory MCP Server — Persistent knowledge graph for cross-session memory",
+  "_used_by": ["atlas-orchestrator", "rex-researcher"],
+  "_requires": [],
+  "_note": "Enables Atlas to persist domain knowledge and Rex to maintain research context across sessions",
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  }
+}

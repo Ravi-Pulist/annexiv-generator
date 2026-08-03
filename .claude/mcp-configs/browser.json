@@ -1,0 +1,12 @@
+{
+  "_description": "Browser MCP Server — Puppeteer-based browser automation for E2E testing",
+  "_used_by": ["tara-blackbox", "milo-frontend"],
+  "_requires": ["Chrome/Chromium installed"],
+  "_note": "Enables Tara to perform real E2E testing: navigate pages, fill forms, click buttons, take screenshots",
+  "mcpServers": {
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    }
+  }
+}

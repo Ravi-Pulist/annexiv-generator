@@ -1,0 +1,12 @@
+{
+  "_description": "Fetch MCP Server — HTTP requests to external APIs and web pages",
+  "_used_by": ["rex-researcher", "lena-integration", "ravi-devops"],
+  "_requires": [],
+  "_note": "Enables Rex to fetch documentation, Lena to test API endpoints, Ravi to check deployment health",
+  "mcpServers": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    }
+  }
+}

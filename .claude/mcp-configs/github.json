@@ -1,0 +1,14 @@
+{
+  "_description": "GitHub MCP Server — PR management, issue tracking, repo operations",
+  "_used_by": ["quinn-qa", "kai-security", "ravi-devops", "soren-backend", "milo-frontend", "winston-architect"],
+  "_requires": ["GITHUB_TOKEN"],
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}

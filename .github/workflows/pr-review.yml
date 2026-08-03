@@ -1,0 +1,111 @@
+# PR Review — Runs Quinn (quality) + Kai (security) review on pull requests
+# Requires: ANTHROPIC_API_KEY secret, Claude Code CLI installed
+#
+# This is a TEMPLATE — adapt to your project's needs.
+# The CTO should review and customize before enabling.
+
+name: Agent Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# Only run one review per PR at a time
+concurrency:
+  group: agent-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  quality-review:
+    name: Quinn — Quality Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run quality review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # Get the diff for this PR
+          DIFF=$(git diff origin/${{ github.base_ref }}...HEAD)
+
+          # Run Quinn's review via Claude Code headless mode
+          REVIEW=$(claude -p "You are Quinn (QA Lead). Review this code diff for quality issues:
+
+          Focus on: readability, complexity, error handling, test coverage, naming conventions.
+
+          Diff:
+          $DIFF
+
+          Output a structured review with findings table and verdict (APPROVE or REQUEST_CHANGES)." \
+            --output-format json 2>/dev/null | jq -r '.result // .text // "Review failed"')
+
+          echo "$REVIEW" > review-quality.md
+
+      - name: Post review comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const review = fs.readFileSync('review-quality.md', 'utf8');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🔍 Quality Review (Quinn)\n\n${review}`
+            });
+
+  security-review:
+    name: Kai — Security Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run security review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DIFF=$(git diff origin/${{ github.base_ref }}...HEAD)
+
+          REVIEW=$(claude -p "You are Kai (Security Engineer). Review this code diff for security vulnerabilities:
+
+          Check for: injection risks, auth issues, data exposure, OWASP Top 10.
+
+          Diff:
+          $DIFF
+
+          Output a structured security review with findings table, OWASP checklist, and verdict." \
+            --output-format json 2>/dev/null | jq -r '.result // .text // "Review failed"')
+
+          echo "$REVIEW" > review-security.md
+
+      - name: Post security comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const review = fs.readFileSync('review-security.md', 'utf8');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🔒 Security Review (Kai)\n\n${review}`
+            });

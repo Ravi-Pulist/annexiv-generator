@@ -1,0 +1,340 @@
+# Annex IV section → evidence-source mapping
+#
+# The spine of this tool. Every `text` and `subpoints` string below is VERBATIM
+# from the Official Journal text of Regulation (EU) 2024/1689, Annex IV,
+# retrieved from EUR-Lex and diffed against the consolidated version
+# 02024R1689-20260727 (Annex IV: IDENTICAL — never amended).
+#
+# `title` fields are OUR short labels, not regulation text. They exist so a
+# renderer has a heading; they carry no legal weight and are marked as such in
+# MAPPING.md.
+#
+# Points 3 and 7 are single unlettered blocks in the OJ. Where this file gives
+# them `limbs`, those are OUR decomposition for evidence-mapping purposes and
+# are flagged `limbs_are_our_decomposition: true`. The regulation does not
+# letter them.
+#
+# Verified 2026-08-04 against:
+#   https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689
+#   https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727
+#   https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202601744  (omnibus)
+#   https://artificialintelligenceact.eu/annex/4/  (independent cross-check)
+
+spec_version: "1.0"
+regulation:
+  celex: "32024R1689"
+  short: "Regulation (EU) 2024/1689 (EU AI Act)"
+  annex: "IV"
+  annex_title: "Technical documentation referred to in Article 11(1)"
+  chapeau: >-
+    The technical documentation referred to in Article 11(1) shall contain at
+    least the following information, as applicable to the relevant AI system:
+  verified_on: "2026-08-04"
+  consolidated_as_at: "2026-07-27"
+  annex_iv_amended_since_original: false
+
+# The operative obligation, and WHEN it bites. Encoded as data because the
+# answer changed: Regulation (EU) 2026/1744 (Digital Omnibus on AI, in force
+# 27 July 2026) rewrote Article 113 and deferred Chapter III Sections 1-3 —
+# which contain Article 11 and therefore the Annex IV duty itself.
+obligation:
+  drawn_up_by: "the provider"
+  provider_duty_source: "Article 16(c) (Article 11(1) itself is passive)"
+  article_11_1_first_subparagraph: >-
+    The technical documentation of a high-risk AI system shall be drawn up
+    before that system is placed on the market or put into service and shall be
+    kept up-to date.
+  simplified_form_for_smes:
+    located_at: "Article 11(1), second subparagraph"
+    note: >-
+      NOT Article 11(2). Article 11(2) requires a SINGLE set of technical
+      documentation where the high-risk system relates to a product covered by
+      Annex I Section A harmonisation legislation — i.e. an MDR/IVDR device
+      merges Annex IV content into the device technical documentation rather
+      than keeping two parallel packs.
+    extended_by_omnibus_to: "SMEs including start-ups, and SMCs (small mid-caps)"
+    commission_form_published: "unverified — the form may not exist yet"
+  annex_iv_mutable: >-
+    Article 11(3) empowers the Commission to amend Annex IV by delegated act in
+    light of technical progress. This mapping is versioned for that reason.
+
+# Applicability by classification route. The route determines the deadline, so
+# the tool asks which route applies and refuses to guess.
+applicability:
+  as_at: "2026-08-04"
+  in_force_now: false
+  note: >-
+    Chapter III Sections 1, 2 and 3 (Articles 6-27, including Article 11 and
+    thus the Annex IV documentation duty) are NOT yet applicable. Amended
+    Article 113, third paragraph, point (c). The only Section 1-3 carve-out
+    already live is Article 6(5).
+  routes:
+    annex_iii:
+      label: "Annex III / Article 6(2) — standalone high-risk use case"
+      applies_from: "2027-12-02"
+      healthcare_entries:
+        - "5(a) — eligibility for essential public assistance benefits and services, including healthcare services"
+        - "5(c) — risk assessment and pricing for life and health insurance"
+        - "5(d) — emergency call triage and dispatch, including emergency healthcare patient triage systems"
+      note: >-
+        Annex III contains NO entry for medical diagnosis, clinical decision
+        support or treatment recommendation. Those reach high-risk via the
+        Annex I route below.
+    annex_i:
+      label: "Annex I / Article 6(1) — product safety legislation route (MDR/IVDR)"
+      applies_from: "2028-08-02"
+      conditions_both_required:
+        - "the AI system is a safety component of, or is itself, a product covered by Annex I harmonisation legislation"
+        - "that product must undergo third-party conformity assessment"
+      annex_i_section_a_health_entries:
+        - "11. Regulation (EU) 2017/745 (MDR)"
+        - "12. Regulation (EU) 2017/746 (IVDR)"
+      note: >-
+        MDR Class I self-certified devices do not meet the second condition and
+        are therefore not high-risk by this route. (SaMD classification under
+        MDR Rule 11 is the client's regulatory determination — this tool records
+        it as ATTESTED input and never decides it.)
+  legacy_grace:
+    source: "Article 111(2) as amended"
+    rule: >-
+      Systems placed on the market before the Chapter III application date are
+      out of scope unless subject to significant changes in their design after
+      that date; public-authority high-risk systems have a hard 2030-08-02
+      backstop.
+  anomaly_flagged: >-
+    Chapter III Section 5 (Articles 40-49, including Article 47 EU declaration
+    of conformity) and Chapter IX (Article 72 post-market monitoring) are
+    applicable from 2026-08-02, while the Section 2 requirements they certify
+    are deferred. Reported as read; a question for qualified legal advice, not
+    a conclusion of this tool.
+
+# Evidence classes. Three, and only three.
+evidence_classes:
+  MEASURED: >-
+    Produced by running something: a hash, a test report, a git history, a
+    dependency tree. Reproducible from the repository.
+  ATTESTED: >-
+    Prose a NAMED human signed, with owner and date. Anonymous prose is not
+    accepted as ATTESTED — it is MISSING.
+  MISSING: >-
+    The repository cannot support this. Named in the gap register, never
+    papered over.
+
+sections:
+  - number: 1
+    title: "General description of the AI system"
+    text: "A general description of the AI system including:"
+    article_refs: []
+    subpoints:
+      a: "its intended purpose, the name of the provider and the version of the system reflecting its relation to previous versions;"
+      b: "how the AI system interacts with, or can be used to interact with, hardware or software, including with other AI systems, that are not part of the AI system itself, where applicable;"
+      c: "the versions of relevant software or firmware, and any requirements related to version updates;"
+      d: "the description of all the forms in which the AI system is placed on the market or put into service, such as software packages embedded into hardware, downloads, or APIs;"
+      e: "the description of the hardware on which the AI system is intended to run;"
+      f: "where the AI system is a component of products, photographs or illustrations showing external features, the marking and internal layout of those products;"
+      g: "a basic description of the user-interface provided to the deployer;"
+      h: "instructions for use for the deployer, and a basic description of the user-interface provided to the deployer, where applicable;"
+    ojeu_oddity: >-
+      The phrase "a basic description of the user-interface provided to the
+      deployer" appears twice — as the whole of (g) and again inside (h). This
+      duplication is present in the OJ, in the consolidated text and in the AI
+      Act Explorer. Rendered as published; not deduplicated by this tool.
+    evidence_sources:
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [a, b, d, e, g, h]
+        looks_for: "model card intended-use / deployment sections, signed and dated"
+      - extractor: git
+        yields: MEASURED
+        supports: [a, c]
+        looks_for: "tags and release history for the version and its relation to previous versions"
+      - extractor: manifests
+        yields: MEASURED
+        supports: [c, e]
+        looks_for: "pinned dependency versions, runtime/python version, declared hardware requirements"
+    complete_when: "every subpoint a-h has at least one MEASURED or ATTESTED source, or a gap entry"
+
+  - number: 2
+    title: "Elements of the AI system and its development process"
+    text: "A detailed description of the elements of the AI system and of the process for its development, including:"
+    article_refs: ["Chapter III Section 2", "Article 14", "Article 13(3)(d)"]
+    subpoints:
+      a: "the methods and steps performed for the development of the AI system, including, where relevant, recourse to pre-trained systems or tools provided by third parties and how those were used, integrated or modified by the provider;"
+      b: "the design specifications of the system, namely the general logic of the AI system and of the algorithms; the key design choices including the rationale and assumptions made, including with regard to persons or groups of persons in respect of who, the system is intended to be used; the main classification choices; what the system is designed to optimise for, and the relevance of the different parameters; the description of the expected output and output quality of the system; the decisions about any possible trade-off made regarding the technical solutions adopted to comply with the requirements set out in Chapter III, Section 2;"
+      c: "the description of the system architecture explaining how software components build on or feed into each other and integrate into the overall processing; the computational resources used to develop, train, test and validate the AI system;"
+      d: "where relevant, the data requirements in terms of datasheets describing the training methodologies and techniques and the training data sets used, including a general description of these data sets, information about their provenance, scope and main characteristics; how the data was obtained and selected; labelling procedures (e.g. for supervised learning), data cleaning methodologies (e.g. outliers detection);"
+      e: "assessment of the human oversight measures needed in accordance with Article 14, including an assessment of the technical measures needed to facilitate the interpretation of the outputs of AI systems by the deployers, in accordance with Article 13(3), point (d);"
+      f: "where applicable, a detailed description of pre-determined changes to the AI system and its performance, together with all the relevant information related to the technical solutions adopted to ensure continuous compliance of the AI system with the relevant requirements set out in Chapter III, Section 2;"
+      g: "the validation and testing procedures used, including information about the validation and testing data used and their main characteristics; metrics used to measure accuracy, robustness and compliance with other relevant requirements set out in Chapter III, Section 2, as well as potentially discriminatory impacts; test logs and all test reports dated and signed by the responsible persons, including with regard to pre-determined changes as referred to under point (f);"
+      h: "cybersecurity measures put in place;"
+    evidence_sources:
+      - extractor: manifests
+        yields: MEASURED
+        supports: [a, c]
+        looks_for: "third-party components, lockfile dependency tree, pinned environment"
+      - extractor: custody
+        yields: MEASURED
+        supports: [a, d]
+        looks_for: "custody register: model checkpoint hashes, licences, CycloneDX ML-BOM — recourse to pre-trained third-party components"
+      - extractor: dataset_manifest
+        yields: MEASURED
+        supports: [d]
+        looks_for: "dataset manifest with per-file hashes, generation script + seed, selection and cleaning steps"
+      - extractor: eval_report
+        yields: MEASURED
+        supports: [g]
+        looks_for: "validation/test procedure, split description, metrics with intervals, dated signed test report"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [b, d, e, f, h]
+        looks_for: "design-rationale doc, labelling-procedure doc, human-oversight assessment, cybersecurity measures — each signed and dated"
+    complete_when: "every subpoint a-h has a source or a gap entry; 2(g) additionally requires the test report to be dated and attributable"
+
+  - number: 3
+    title: "Monitoring, functioning and control of the AI system"
+    text: "Detailed information about the monitoring, functioning and control of the AI system, in particular with regard to: its capabilities and limitations in performance, including the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used and the overall expected level of accuracy in relation to its intended purpose; the foreseeable unintended outcomes and sources of risks to health and safety, fundamental rights and discrimination in view of the intended purpose of the AI system; the human oversight measures needed in accordance with Article 14, including the technical measures put in place to facilitate the interpretation of the outputs of AI systems by the deployers; specifications on input data, as appropriate;"
+    article_refs: ["Article 14"]
+    subpoints: {}
+    limbs_are_our_decomposition: true
+    limbs:
+      overall_accuracy: "the overall expected level of accuracy in relation to the intended purpose"
+      subgroup_accuracy: "the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used"
+      unintended_outcomes: "foreseeable unintended outcomes and sources of risk to health, safety, fundamental rights, discrimination"
+      human_oversight: "human oversight measures needed in accordance with Article 14"
+      input_specifications: "specifications on input data, as appropriate"
+    limb_note: >-
+      The OJ prints point 3 as one unlettered block. Our decomposition splits
+      "degrees of accuracy for specific persons or groups" from overall
+      accuracy deliberately: they are separate obligations in the text, and a
+      report carrying only the overall number must not be able to satisfy both.
+    evidence_sources:
+      - extractor: eval_report
+        yields: MEASURED
+        supports: [overall_accuracy]
+        via_keys: ["eval.overall_accuracy"]
+        looks_for: "overall accuracy metrics with confidence intervals"
+      - extractor: eval_report
+        yields: MEASURED
+        supports: [subgroup_accuracy]
+        via_keys: ["eval.subgroup_accuracy"]
+        looks_for: "per-subgroup accuracy breakdown — a present eval report with a null subgroup section does NOT satisfy this"
+      - extractor: input_schema
+        yields: MEASURED
+        supports: [input_specifications]
+        looks_for: "typed input model (pydantic) or declared input schema"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [overall_accuracy, unintended_outcomes, human_oversight]
+        looks_for: "model-card limitations section, foreseeable-misuse analysis, oversight description"
+    complete_when: "all five limbs sourced or gapped; subgroup accuracy is its own check and its absence is a named gap"
+
+  - number: 4
+    title: "Appropriateness of the performance metrics"
+    text: "A description of the appropriateness of the performance metrics for the specific AI system;"
+    article_refs: []
+    subpoints: {}
+    evidence_sources:
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [whole]
+        looks_for: "metric-rationale prose, signed — why THESE metrics for THIS intended purpose"
+      - extractor: eval_report
+        yields: MEASURED
+        supports: [whole]
+        looks_for: "the metric definitions the rationale refers to, so the prose is anchored to something computed"
+    complete_when: "an ATTESTED rationale exists AND names at least one metric that the eval report actually computes"
+
+  - number: 5
+    title: "Risk management system"
+    text: "A detailed description of the risk management system in accordance with Article 9;"
+    article_refs: ["Article 9"]
+    subpoints: {}
+    evidence_sources:
+      - extractor: risk_log
+        yields: ATTESTED
+        supports: [whole]
+        looks_for: "structured risk log: per risk an id, description, owner, status, mitigation, review date. Structure is machine-checked; content is attested."
+    complete_when: "risk log parses, every entry carries owner + status + mitigation + review date; a structurally invalid log is MISSING, not ATTESTED"
+
+  - number: 6
+    title: "Lifecycle changes"
+    text: "A description of relevant changes made by the provider to the system through its lifecycle;"
+    article_refs: []
+    subpoints: {}
+    distinct_from: >-
+      Point 2(f) covers PRE-DETERMINED (planned) changes. Point 6 covers changes
+      ACTUALLY made across the lifecycle. Kept as separate sections deliberately.
+    evidence_sources:
+      - extractor: git
+        yields: MEASURED
+        supports: [whole]
+        looks_for: "commit history and tags between releases"
+      - extractor: changelog
+        yields: MEASURED
+        supports: [whole]
+        looks_for: "CHANGELOG entries with versions and dates"
+    complete_when: "a changelog or tagged history exists covering at least one released version"
+
+  - number: 7
+    title: "Harmonised standards applied, or alternative solutions"
+    text: "A list of the harmonised standards applied in full or in part the references of which have been published in the Official Journal of the European Union; where no such harmonised standards have been applied, a detailed description of the solutions adopted to meet the requirements set out in Chapter III, Section 2, including a list of other relevant standards and technical specifications applied;"
+    article_refs: ["Chapter III Section 2"]
+    subpoints: {}
+    limbs_are_our_decomposition: true
+    limbs:
+      standards_applied: "list of harmonised standards applied in full or in part"
+      alternative_solutions: "where none applied: description of the solutions adopted, plus other standards/specifications applied"
+    evidence_sources:
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [standards_applied, alternative_solutions]
+        looks_for: "declared standards list (e.g. standards.yaml or a signed standards section)"
+    complete_when: "either a standards list exists, or an attested alternative-solutions description exists; neither present is a named gap"
+
+  - number: 8
+    title: "EU declaration of conformity"
+    text: "A copy of the EU declaration of conformity referred to in Article 47;"
+    article_refs: ["Article 47"]
+    subpoints: {}
+    permanent_gap: true
+    permanent_gap_reason: >-
+      The EU declaration of conformity is a legal act executed by the provider
+      under Article 47. It is not derivable from a repository and this tool will
+      never generate, draft or template it. Flagged as a permanent by-design gap
+      in every pack, including packs that are otherwise complete.
+    evidence_sources: []
+    complete_when: "never generatable by this tool — always rendered as a by-design permanent gap"
+
+  - number: 9
+    title: "Post-market performance evaluation system"
+    text: "A detailed description of the system in place to evaluate the AI system performance in the post-market phase in accordance with Article 72, including the post-market monitoring plan referred to in Article 72(3)."
+    article_refs: ["Article 72", "Article 72(3)"]
+    subpoints: {}
+    limbs_are_our_decomposition: true
+    limbs:
+      evaluation_system: "the system in place to evaluate post-market performance (Article 72)"
+      monitoring_plan: "the post-market monitoring plan (Article 72(3)) — a distinct named artefact"
+    evidence_sources:
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [evaluation_system]
+        via_keys: ["doc.post_market_evaluation"]
+        looks_for: "description of the post-market performance evaluation system, signed and dated"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [monitoring_plan]
+        via_keys: ["doc.post_market_monitoring_plan"]
+        looks_for: "the Article 72(3) post-market monitoring plan as its own named artefact"
+      - extractor: telemetry_config
+        yields: MEASURED
+        supports: [evaluation_system]
+        looks_for: "monitoring/telemetry configuration committed in the repo"
+    complete_when: "both limbs sourced or gapped; the Article 72(3) plan is checked as its own artefact, not folded into the general description"
+
+# Articles cited by the Annex IV text itself, exhaustively. Article 15 and
+# Article 10 are NOT cited anywhere in Annex IV — accuracy/robustness/
+# cybersecurity and data governance reach the documentation duty only via the
+# four "Chapter III, Section 2" references and the substantive wording of 2(d),
+# 2(g), 2(h) and 3. This tool does not synthesise anchors the annex lacks.
+articles_cited_by_annex_iv: ["Article 9", "Article 11(1)", "Article 13(3)(d)", "Article 14", "Article 47", "Article 72", "Article 72(3)"]
+articles_not_cited_despite_common_assumption: ["Article 10", "Article 15"]

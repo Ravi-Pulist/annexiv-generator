@@ -1,0 +1,121 @@
+domain:
+  id: "supply-chain"
+  name: "Supply Chain & Logistics"
+  description: "Procurement, inventory, warehouse management, shipping, tracking, and logistics optimization"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["edi", "as2", "warehouse", "wms", "tms", "erp", "sap", "procurement", "gs1"]
+    medium_signal: ["inventory", "shipment", "tracking", "logistics", "purchase-order", "sku", "barcode"]
+    low_signal: ["supply", "vendor", "supplier", "fulfillment", "distribution"]
+  file_patterns: ["**/edi/**", "**/warehouse/**", "**/inventory/**", "**/shipment/**"]
+  dependency_patterns: ["edi-*", "gs1-*", "barcode-*", "@sap/*"]
+  config_signals:
+    domain_focus: ["supply-chain", "logistics", "warehouse", "procurement", "inventory"]
+    regulatory: ["ctpat", "itar", "customs", "fda-supply"]
+
+regulations:
+  - id: "ctpat"
+    name: "Customs-Trade Partnership Against Terrorism"
+    description: "US CBP voluntary supply chain security program"
+    mandatory: false
+  - id: "itar"
+    name: "International Traffic in Arms Regulations"
+    description: "Controls export of defense-related articles and services"
+    mandatory: false
+  - id: "fda-supply"
+    name: "FDA Supply Chain Requirements"
+    description: "Drug Supply Chain Security Act — pharmaceutical track and trace"
+    mandatory: false
+
+integration_targets:
+  - id: "sap"
+    name: "SAP ERP"
+    protocols: ["idoc", "bapi", "odata", "rfc"]
+    description: "Enterprise resource planning"
+  - id: "oracle-erp"
+    name: "Oracle ERP Cloud"
+    protocols: ["rest-api", "soap"]
+    description: "Cloud ERP"
+  - id: "edi-van"
+    name: "EDI Value-Added Networks"
+    protocols: ["edi-x12", "edifact", "as2"]
+    description: "B2B document exchange"
+
+sensitive_data:
+  classification: "business-confidential"
+  patterns:
+    - name: "pricing-data"
+      description: "Wholesale pricing, cost structures, margin data"
+      field_names: ["unit_cost", "wholesale_price", "margin", "cost_basis", "landed_cost"]
+      severity: high
+      action: warn
+    - name: "vendor-contracts"
+      description: "Vendor contract terms, SLA details"
+      field_names: ["contract_value", "contract_terms", "sla_penalty"]
+      severity: medium
+      action: log
+    - name: "trade-secrets"
+      description: "Proprietary formulas, manufacturing processes"
+      field_names: ["formula", "recipe", "process_spec", "bom_secret"]
+      severity: critical
+      action: block
+
+rules:
+  - id: "edi-validation"
+    text: "All EDI documents must be validated against X12 or EDIFACT schemas before transmission"
+    applies_to: ["lena-integration", "anya-data"]
+    severity: mandatory
+  - id: "inventory-accuracy"
+    text: "Inventory operations must be ACID-compliant — no partial updates that create ghost inventory"
+    applies_to: ["soren-backend", "anya-data"]
+    severity: mandatory
+  - id: "lot-traceability"
+    text: "Products with lot/batch tracking must maintain full traceability from receipt to shipment"
+    applies_to: ["soren-backend", "anya-data"]
+    severity: recommended
+
+skills:
+  - id: "edi-integration"
+    name: "EDI Integration"
+    file: "skills/edi-integration/SKILL.md"
+    description: "X12/EDIFACT parsing, 850/856/810/997 transaction sets, AS2 transport"
+    relevance_keywords: ["edi", "x12", "edifact", "as2", "850", "856", "810"]
+    recommended_agents: ["lena-integration", "anya-data"]
+  - id: "warehouse-management"
+    name: "Warehouse Management Patterns"
+    file: "skills/warehouse-management/SKILL.md"
+    description: "WMS design, pick/pack/ship, bin locations, inventory allocation, wave planning"
+    relevance_keywords: ["wms", "warehouse", "pick", "pack", "bin", "allocation"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "inventory-management"
+    name: "Inventory Management"
+    file: "skills/inventory-management/SKILL.md"
+    description: "Stock levels, reorder points, safety stock, lot/serial tracking, cycle counting"
+    relevance_keywords: ["inventory", "stock", "reorder", "lot", "serial", "cycle-count"]
+    recommended_agents: ["soren-backend", "anya-data"]
+  - id: "procurement-workflows"
+    name: "Procurement Workflows"
+    file: "skills/procurement-workflows/SKILL.md"
+    description: "Purchase orders, RFQ, vendor management, approval workflows, three-way match"
+    relevance_keywords: ["procurement", "purchase-order", "rfq", "vendor", "three-way-match"]
+    recommended_agents: ["maya-analyst", "soren-backend"]
+  - id: "shipping-logistics"
+    name: "Shipping & Logistics"
+    file: "skills/shipping-logistics/SKILL.md"
+    description: "Carrier integration, rate shopping, label generation, tracking, last-mile"
+    relevance_keywords: ["shipping", "carrier", "tracking", "label", "last-mile", "freight"]
+    recommended_agents: ["lena-integration", "soren-backend"]
+  - id: "erp-integration"
+    name: "ERP Integration Patterns"
+    file: "skills/erp-integration/SKILL.md"
+    description: "SAP IDoc/BAPI, Oracle REST, ERP master data sync, material master, BOM"
+    relevance_keywords: ["erp", "sap", "idoc", "bapi", "master-data", "material"]
+    recommended_agents: ["lena-integration", "winston-architect"]
+  - id: "supply-chain-devops"
+    name: "Supply Chain DevOps"
+    file: "skills/supply-chain-devops/SKILL.md"
+    description: "High-availability for order processing, EDI monitoring, SLA dashboards"
+    relevance_keywords: ["supply-chain-infra", "edi-monitoring", "order-sla"]
+    recommended_agents: ["ravi-devops"]

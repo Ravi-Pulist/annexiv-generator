@@ -1,0 +1,98 @@
+# .planning/models.yaml
+# Model selection is ALIAS-FIRST so the framework never goes stale when new
+# models ship. Tiers reference stable family aliases (opus / sonnet / haiku)
+# that the runtime resolves to the NEWEST model in that family. Agent
+# frontmatter uses the same aliases (model: opus).
+#
+# Pin an exact model ID only when you must reproduce behavior (an audit, a
+# regression bisect). A pin is a temporary override, not a default — leave
+# `pin: null` in normal operation.
+#
+# API keys are ALWAYS read from environment variables, never stored here.
+
+selection:
+  policy: alias-first
+  # Premium option: the Mythos-class tier above Opus (alias: fable) exists for
+  # the hardest architecture/compliance work. Enable per-agent deliberately —
+  # cost profile is materially higher.
+
+role_tiers:
+  architect:
+    description: "High reasoning — architecture, compliance, security, complex integration, data modeling"
+    alias: opus
+    pin: null              # e.g. "claude-opus-4-8" to freeze for reproducibility
+    fallback: sonnet
+    agents:
+      - atlas-orchestrator
+      - maya-analyst
+      - winston-architect
+      - soren-backend
+      - lena-integration
+      - anya-data
+      - vera-compliance
+      - kai-security
+
+  developer:
+    description: "Fast code generation — frontend, standard implementations"
+    alias: sonnet
+    pin: null
+    fallback: haiku
+    agents:
+      - milo-frontend
+
+  analyst:
+    description: "Planning, coordination, QA — structured output, moderate reasoning"
+    alias: sonnet
+    pin: null
+    fallback: haiku
+    agents:
+      - nadia-pm
+      - derek-sm
+      - quinn-qa
+      - ravi-devops
+
+  researcher:
+    description: "Research, documentation, testing — high throughput"
+    alias: sonnet
+    pin: null
+    fallback: haiku
+    agents:
+      - rex-researcher
+      - sage-techwriter
+      - tara-blackbox
+
+# Non-Anthropic providers (for Cursor/Aider/SDK adapters). Disabled by default.
+# Model IDs here are USER-MAINTAINED examples — check your provider's current
+# lineup rather than trusting this file to stay fresh. Prefer each provider's
+# own "latest" aliases where they exist.
+providers:
+  anthropic:
+    enabled: true
+    api_key_env: "ANTHROPIC_API_KEY"
+    aliases: [opus, sonnet, haiku]   # premium: fable (enable deliberately)
+  openai:
+    enabled: false
+    api_key_env: "OPENAI_API_KEY"
+    tier_map: { architect: null, developer: null, researcher: null }  # fill with current IDs when enabling
+  google:
+    enabled: false
+    api_key_env: "GOOGLE_API_KEY"
+    tier_map: { architect: null, developer: null, researcher: null }
+  ollama:
+    enabled: false
+    base_url: "http://localhost:11434"
+    tier_map: { architect: null, developer: null, researcher: null }
+  openrouter:
+    enabled: false
+    api_key_env: "OPENROUTER_API_KEY"
+    base_url: "https://openrouter.ai/api/v1"
+    tier_map: { architect: null, developer: null, researcher: null }
+
+fallback:
+  strategy: "tier_downgrade"
+  max_retries: 2
+  fallback_chain: [architect, developer, analyst, researcher]
+
+# Cost figures are intentionally NOT stored here — they change with every model
+# generation. Session cost comes live from the harness (statusline → cost.total_cost_usd
+# → .planning/cost-log.jsonl); for per-token pricing consult the provider's pricing page.

@@ -1,0 +1,102 @@
+# .planning/config.yaml
+# Framework configuration — source of truth for workflow behavior
+
+framework:
+  name: "rmad"
+  version: "2.2.0"
+
+project:
+  name: "EU AI Act Annex IV Generator"
+  description: "EU AI Act Annex IV Generator"
+  domain_focus: ["healthcare"]
+  regulatory: []
+  integration_targets: []
+  tech_stack:
+    backend: "node"
+    frontend: "react"
+    database: "postgresql"
+    cloud: "aws"
+
+mode: "manual"
+
+manual: {}
+
+hybrid:
+  pause_on_gate: true
+  allow_intervention: true
+
+autonomous:
+  gates:
+    approve_requirements: true
+    approve_architecture: true
+    approve_prd: true
+    approve_sprint_plan: true
+    approve_code_review: false
+    approve_compliance: true
+    approve_security: true
+    approve_delivery: true
+  auto_advance: true
+  parallel_execution: true
+  max_concurrent_agents: 3
+
+agents:
+  enabled:
+    - atlas-orchestrator
+    - maya-analyst
+    - winston-architect
+    - nadia-pm
+    - derek-sm
+    - soren-backend
+    - milo-frontend
+    - lena-integration
+    - anya-data
+    - ravi-devops
+    - quinn-qa
+    - tara-blackbox
+    - vera-compliance
+    - kai-security
+    - rex-researcher
+    - sage-techwriter
+
+context:
+  max_skills_per_agent: 5
+  context_thresholds:
+    comfortable: 50
+    cautious: 35
+    warning: 25
+    critical: 15
+    emergency: 10
+  checkpoint_interval: 25
+
+deviation:
+  enabled: true
+  rule_5_compliance: true
+  max_auto_fix_attempts: 3
+
+learning:
+  enabled: true
+  scrub_sensitive_data: true
+  observation_capture: true
+  auto_instinct_threshold: 3
+  instinct_confidence_threshold: 0.85
+  require_cto_approval:
+    - skill_evolution
+    - skill_promotion
+    - compliance_instincts
+    - security_instincts
+
+cost_tracking:
+  enabled: true
+  log_file: ".planning/cost-log.jsonl"
+  budget_alert_threshold: 50.00
+  budget_alert_weekly: 200.00
+
+refs:
+  models: ".planning/models.yaml"
+  skill_config: ".planning/skill-config.yaml"
+  state: ".planning/STATE.md"
+  agents_dir: ".claude/agents/"
+  skills_dir: ".claude/skills/"
+  charters_dir: ".claude/charters/"
+  hooks_dir: ".claude/hooks/"
+  domain_packs_dir: "domain-packs/"

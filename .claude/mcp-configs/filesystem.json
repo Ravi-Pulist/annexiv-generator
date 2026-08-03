@@ -1,0 +1,15 @@
+{
+  "_description": "Filesystem MCP Server — Extended file operations with directory restrictions",
+  "_used_by": ["all agents"],
+  "_requires": [],
+  "_note": "Restricts access to specified directories. Adjust allowedDirectories for your project.",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y", "@modelcontextprotocol/server-filesystem",
+        "--allowedDirectories", "${PROJECT_ROOT}"
+      ]
+    }
+  }
+}

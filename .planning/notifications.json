@@ -1,0 +1,12 @@
+{
+  "_description": "Notification configuration — fires webhooks on framework events",
+  "_formats": "slack | teams | discord | generic",
+  "enabled": false,
+  "webhook_url": "",
+  "format": "slack",
+  "events": [
+    "session_end",
+    "phase_complete",
+    "security_finding"
+  ]
+}

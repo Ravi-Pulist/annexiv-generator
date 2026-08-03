@@ -1,0 +1,21 @@
+# RMAD
+.env
+.env.*
+*.key
+*.pem
+**/credentials*
+.planning/learning/observations/
+.planning/cost-log.jsonl
+.planning/checkpoints/
+.planning/index/
+.planning/context-health.json
+.planning/context-health-history.jsonl
+.planning/.context-bridge.json
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+out/
+node_modules/
+.planning/index/

@@ -1,0 +1,213 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/session-start.js",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/stage-gate.js",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/path-enforcer.js",
+            "timeout": 12000
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/data-guard.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/egress-guard.js",
+            "timeout": 8000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/deviation-detector.js"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/observation-capture.js",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/context-intelligence.js",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/accountability-logger.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/code-validator.js",
+            "timeout": 15000
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/cost-meter.js",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/checkpoint-saver.js"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/session-summary.js"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/notifier.js",
+            "timeout": 15000
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/completion-gate.js",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node .claude/hooks/statusline.js"
+  },
+  "permissions": {
+    "deny": [
+      "Edit(./**/*.key)",
+      "Edit(./**/*.p12)",
+      "Edit(./**/*.pem)",
+      "Edit(./**/*.pfx)",
+      "Edit(./**/.aws/**)",
+      "Edit(./**/.ssh/**)",
+      "Edit(./**/credentials*)",
+      "Edit(./**/id_rsa*)",
+      "Edit(./*.key)",
+      "Edit(./*.p12)",
+      "Edit(./*.pem)",
+      "Edit(./*.pfx)",
+      "Edit(./.aws/**)",
+      "Edit(./.ssh/**)",
+      "Edit(./credentials*)",
+      "Edit(./id_rsa*)",
+      "Read(./**/*.key)",
+      "Read(./**/*.p12)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.pfx)",
+      "Read(./**/.aws/**)",
+      "Read(./**/.ssh/**)",
+      "Read(./**/credentials*)",
+      "Read(./**/id_rsa*)",
+      "Read(./*.key)",
+      "Read(./*.p12)",
+      "Read(./*.pem)",
+      "Read(./*.pfx)",
+      "Read(./.aws/**)",
+      "Read(./.ssh/**)",
+      "Read(./credentials*)",
+      "Read(./id_rsa*)",
+      "Write(./**/*.key)",
+      "Write(./**/*.p12)",
+      "Write(./**/*.pem)",
+      "Write(./**/*.pfx)",
+      "Write(./**/.aws/**)",
+      "Write(./**/.ssh/**)",
+      "Write(./**/credentials*)",
+      "Write(./**/id_rsa*)",
+      "Write(./*.key)",
+      "Write(./*.p12)",
+      "Write(./*.pem)",
+      "Write(./*.pfx)",
+      "Write(./.aws/**)",
+      "Write(./.ssh/**)",
+      "Write(./credentials*)",
+      "Write(./id_rsa*)"
+    ]
+  }
+}

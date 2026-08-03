@@ -1,0 +1,10 @@
+{
+  "about": "Vendored verbatim from the RMAD-platform evidence contract. Do not edit these files here — edit them there and re-vendor, or the two planes stop agreeing and the chain silently stops being verifiable by the other side.",
+  "source": "RMAD-platform/node/src",
+  "vendored_at": "2026-08-02",
+  "digests": {
+    "canonical.js": "sha256:9740ae1ade4a70673a1b84c8ce32d64e0b719d8c180fd93e5e9443e48faf2ff4",
+    "chain.js": "sha256:6d5d6a65919afbe306a704534e90882ba755acdc7a3d506a168fef21f4abf865",
+    "writer.js": "sha256:81e723f30d26109f963090513b4c78b640564a1350426dbb1bf9de1bc3b27a68"
+  }
+}

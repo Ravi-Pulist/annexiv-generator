@@ -1,0 +1,126 @@
+domain:
+  id: "ai-engineering"
+  name: "AI Engineering & Self-Hosted LLM Deployment"
+  description: "Forward-deployed engineering for AI systems — graph engineering, loop engineering, agentic design, and open-weight LLM deployment"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["vllm", "ollama", "llamacpp", "open-weight", "self-hosted-llm", "rag", "embedding", "agentic", "loop-engineering", "graph-engineering"]
+    medium_signal: ["llm", "inference", "retrieval", "vector", "reranker", "quantization", "gguf", "safetensors", "agent", "orchestration"]
+    low_signal: ["prompt", "token", "model", "context", "eval"]
+  file_patterns:
+    - "**/Modelfile"
+    - "**/*.gguf"
+    - "**/*.safetensors"
+    - "**/vllm*.yaml"
+    - "**/ollama*.yml"
+  dependency_patterns:
+    - "vllm"
+    - "ollama"
+    - "sentence-transformers"
+    - "llama-cpp-python"
+    - "transformers"
+  config_signals:
+    domain_focus: ["ai", "ai-engineering", "llm", "self-hosted-llm", "genai"]
+
+regulations:
+  - id: "eu-ai-act-art12"
+    name: "EU AI Act Article 12 — automatic record-keeping"
+    note: "High-risk (Annex III) obligations apply from 2 Dec 2027 per Regulation (EU) 2026/1744; Annex I from 2 Aug 2028. Applicability is scope-dependent — never assume a deployment is in scope."
+  - id: "cert-in-logging"
+    name: "CERT-In direction (iv) — 180-day log retention in Indian jurisdiction"
+    note: "Applies to body corporates operating in India. Retention is a mechanism, not a config intention."
+
+integration_targets:
+  - "ollama"
+  - "vllm"
+  - "llama.cpp"
+  - "openai-compatible-endpoint"
+  - "huggingface-hub"
+  - "oci-model-registry"
+
+sensitive_data:
+  classification: "credentials-and-model-artifacts"
+  patterns:
+    - name: "model-provider-key"
+      description: "API key for a hosted model provider"
+      regex: "(?:sk-[a-zA-Z0-9]{20,}|hf_[a-zA-Z0-9]{20,}|r8_[a-zA-Z0-9]{20,})"
+      severity: critical
+      action: block
+    - name: "inference-endpoint-credential"
+      description: "Bearer token or subscription key for an inference endpoint"
+      regex: "(?:api[_-]?subscription[_-]?key|anthropic[_-]?auth[_-]?token|openai[_-]?api[_-]?key)\\s*[:=]\\s*['\"][^'\"]{12,}['\"]"
+      severity: critical
+      action: block
+    - name: "registry-credential"
+      description: "Credential for a model or container registry"
+      regex: "(?:registry[_-]?password|docker[_-]?token|oci[_-]?secret)\\s*[:=]\\s*['\"][^'\"]{8,}['\"]"
+      severity: critical
+      action: block
+    - name: "unpinned-checkpoint"
+      description: "Model reference with no checkpoint hash — provenance cannot be established"
+      regex: "(?:from_pretrained|ollama\\s+pull|--model)\\s+['\"]?[\\w./-]+:latest"
+      severity: medium
+      action: warn
+    - name: "prompt-with-secret"
+      description: "Credential interpolated into a prompt or system message"
+      regex: "(?:system_prompt|messages|prompt)\\s*[:=].{0,200}(?:password|secret|api[_-]?key)"
+      severity: high
+      action: warn
+
+rules:
+  - id: "ai-eng-checkable-target"
+    text: "An autonomous loop must terminate on a machine-checkable condition, never on a model's own assessment of its work. Where no automatic check exists, escalate the tier rather than iterating."
+    applies_to: ["all"]
+    severity: mandatory
+  - id: "ai-eng-loop-caps"
+    text: "Every loop declares a cap on attempts, wall-clock time and tokens before it runs. An uncapped loop is a defect, not a configuration choice."
+    applies_to: ["winston-architect", "soren-backend", "quinn-qa"]
+    severity: mandatory
+  - id: "ai-eng-no-prompt-authz"
+    text: "Never enforce authorisation in a system prompt. Assume the prompt leaks; enforce in query predicates and database grants."
+    applies_to: ["winston-architect", "soren-backend", "kai-security", "lena-integration"]
+    severity: mandatory
+  - id: "ai-eng-external-verification"
+    text: "Verify an inference host's exposure from outside the host with a port scan. A configuration review is not evidence — configuration intent and network reality diverge constantly."
+    applies_to: ["ravi-devops", "kai-security"]
+    severity: mandatory
+  - id: "ai-eng-checkpoint-pinning"
+    text: "Contract against a checkpoint hash, never a model name. An endpoint can stay healthy while its effective model identity changes through weights, tokenizer, quantisation or routing."
+    applies_to: ["ravi-devops", "winston-architect", "anya-data"]
+    severity: mandatory
+  - id: "ai-eng-licence-gate"
+    text: "Verify a model's licence permits the intended use before it enters a shelf. Non-commercial weights must be refused by licence field, not by recollection."
+    applies_to: ["ravi-devops", "vera-compliance", "winston-architect"]
+    severity: mandatory
+  - id: "ai-eng-state-the-gap"
+    text: "Any derived map, index or measurement reports what it could not resolve, with denominators. A result that implies completeness it does not have is worse than no result."
+    applies_to: ["all"]
+    severity: mandatory
+
+skills:
+  - id: "graph-engineering-design"
+    name: "Graph Engineering Design"
+    file: "skills/graph-engineering-design/SKILL.md"
+    description: "Designing an estate map that states its own gaps — resolution denominators, blast radius, ERD confidence banding"
+    relevance_keywords: ["graph", "blast-radius", "erd", "dependency", "estate", "impact", "architecture-discovery"]
+    recommended_agents: ["winston-architect", "anya-data", "atlas-orchestrator"]
+  - id: "loop-engineering-design"
+    name: "Loop Engineering Design"
+    file: "skills/loop-engineering-design/SKILL.md"
+    description: "Attempt, check, repair, escalate — machine-checkable targets, specific feedback, hard caps, tier ladders, abstention"
+    relevance_keywords: ["loop", "retry", "escalation", "agentic-rag", "reflection", "self-correction", "token-budget"]
+    recommended_agents: ["winston-architect", "soren-backend", "quinn-qa"]
+  - id: "agentic-ai-design"
+    name: "Agentic AI Design"
+    file: "skills/agentic-ai-design/SKILL.md"
+    description: "Agent topology, least-privilege tool surfaces, breaking the lethal trifecta, human approval on side effects"
+    relevance_keywords: ["agent", "tool-use", "mcp", "prompt-injection", "containment", "orchestration", "trifecta"]
+    recommended_agents: ["winston-architect", "kai-security", "lena-integration"]
+  - id: "open-weight-llm-deployment"
+    name: "Open-Weight LLM Deployment"
+    file: "skills/open-weight-llm-deployment/SKILL.md"
+    description: "Model shelf and licence gates, VRAM arithmetic, serving runtimes, egress containment, external verification, checkpoint pinning"
+    relevance_keywords: ["ollama", "vllm", "quantization", "vram", "gguf", "safetensors", "self-hosted", "model-custody", "ml-bom"]
+    recommended_agents: ["ravi-devops", "kai-security", "winston-architect"]

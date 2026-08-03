@@ -1,0 +1,86 @@
+domain:
+  id: "generic"
+  name: "Generic Software Project"
+  description: "General-purpose software development without domain-specific requirements"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: []
+    medium_signal: []
+    low_signal: []
+  file_patterns: []
+  dependency_patterns: []
+  config_signals:
+    domain_focus: ["generic", "general"]
+
+regulations: []
+
+integration_targets: []
+
+sensitive_data:
+  classification: "pii"
+  patterns:
+    - name: "ssn"
+      description: "Social Security Number"
+      regex: "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+      severity: critical
+      action: block
+    - name: "api-keys"
+      description: "API keys or secrets in code"
+      regex: "(?:api[_-]?key|secret[_-]?key|access[_-]?token)\\s*[:=]\\s*['\"][a-zA-Z0-9]{16,}['\"]"
+      severity: critical
+      action: block
+    - name: "email-bulk"
+      description: "Email addresses in bulk data"
+      regex: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"
+      severity: low
+      action: log
+
+rules:
+  - id: "generic-security"
+    text: "Follow OWASP Top 10 guidelines for all web-facing code"
+    applies_to: ["all"]
+    severity: mandatory
+  - id: "generic-testing"
+    text: "All new code must have corresponding tests before merge"
+    applies_to: ["soren-backend", "milo-frontend", "lena-integration", "anya-data"]
+    severity: mandatory
+
+skills:
+  - id: "rest-api-patterns"
+    name: "REST API Patterns"
+    file: "skills/rest-api-patterns/SKILL.md"
+    description: "RESTful design, versioning, pagination, filtering, HATEOAS"
+    relevance_keywords: ["rest", "api", "endpoint", "pagination", "versioning"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "graphql-patterns"
+    name: "GraphQL Patterns"
+    file: "skills/graphql-patterns/SKILL.md"
+    description: "Schema design, resolvers, batching, subscriptions, federation"
+    relevance_keywords: ["graphql", "schema", "resolver", "subscription", "federation"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "event-driven-architecture"
+    name: "Event-Driven Architecture"
+    file: "skills/event-driven-architecture/SKILL.md"
+    description: "Message queues, event sourcing, CQRS, saga patterns"
+    relevance_keywords: ["event", "queue", "kafka", "rabbitmq", "cqrs", "saga"]
+    recommended_agents: ["winston-architect", "soren-backend"]
+  - id: "database-patterns"
+    name: "Database Patterns"
+    file: "skills/database-patterns/SKILL.md"
+    description: "Schema design, indexing, migrations, connection pooling, caching"
+    relevance_keywords: ["database", "schema", "migration", "index", "cache"]
+    recommended_agents: ["anya-data", "soren-backend"]
+  - id: "auth-patterns"
+    name: "Authentication & Authorization Patterns"
+    file: "skills/auth-patterns/SKILL.md"
+    description: "JWT, OAuth2, RBAC, ABAC, session management, API keys"
+    relevance_keywords: ["auth", "jwt", "oauth", "rbac", "session", "api-key"]
+    recommended_agents: ["soren-backend", "kai-security"]
+  - id: "observability-patterns"
+    name: "Observability Patterns"
+    file: "skills/observability-patterns/SKILL.md"
+    description: "Structured logging, distributed tracing, metrics, alerting, SLO/SLI"
+    relevance_keywords: ["logging", "tracing", "metrics", "observability", "slo"]
+    recommended_agents: ["ravi-devops", "soren-backend"]

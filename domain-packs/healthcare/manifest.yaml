@@ -1,0 +1,181 @@
+domain:
+  id: "healthcare"
+  name: "Healthcare & Life Sciences"
+  description: "Healthcare interoperability, clinical data, EHR integration, and health information exchange"
+  version: "1.0.0"
+
+detection:
+  keywords:
+    high_signal: ["fhir", "hl7", "hipaa", "ehr", "emr", "phi", "epic", "cerner", "smart-on-fhir", "clinical"]
+    medium_signal: ["patient", "encounter", "observation", "medication", "diagnosis", "icd-10", "snomed", "loinc"]
+    low_signal: ["health", "medical", "hospital", "provider", "payer", "claim"]
+  file_patterns: ["**/fhir/**", "**/hl7/**", "**/*.fhir.json", "**/smart-launch*"]
+  dependency_patterns: ["fhir-*", "hapi-fhir", "@smart-on-fhir/*", "hl7*"]
+  config_signals:
+    domain_focus: ["fhir-interoperability", "ehr-integration", "clinical-data", "healthcare"]
+    regulatory: ["hipaa", "onc-g10", "hitech"]
+
+regulations:
+  - id: "hipaa"
+    name: "Health Insurance Portability and Accountability Act"
+    description: "US federal law protecting health information privacy and security"
+    mandatory: true
+  - id: "onc-g10"
+    name: "ONC 21st Century Cures Act 170.315(g)(10)"
+    description: "Standardized API for patient and population services"
+    mandatory: false
+    certification:
+      name: "ONC Health IT Certification"
+      timeline_typical: "6-12 months"
+  - id: "hitech"
+    name: "Health Information Technology for Economic and Clinical Health Act"
+    description: "Strengthens HIPAA enforcement and breach notification"
+    mandatory: true
+
+integration_targets:
+  - id: "epic"
+    name: "Epic Systems"
+    protocols: ["fhir-r4", "hl7v2", "smart-on-fhir"]
+    description: "Largest US EHR vendor — FHIR R4 + legacy HL7v2 ADT/ORM"
+  - id: "cerner"
+    name: "Oracle Health (Cerner)"
+    protocols: ["fhir-r4", "hl7v2"]
+    description: "Major EHR vendor — FHIR R4 with Cerner-specific extensions"
+  - id: "allscripts"
+    name: "Veradigm (Allscripts)"
+    protocols: ["fhir-r4", "hl7v2", "ccda"]
+    description: "EHR vendor — FHIR R4 + CDA documents"
+
+sensitive_data:
+  classification: "phi"
+  patterns:
+    - name: "ssn"
+      description: "Social Security Number"
+      regex: "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+      severity: critical
+      action: block
+    - name: "mrn"
+      description: "Medical Record Number"
+      field_names: ["mrn", "medical_record", "patient_id", "patientId"]
+      severity: high
+      action: warn
+    - name: "dob"
+      description: "Date of Birth in patient context"
+      field_names: ["date_of_birth", "dob", "birthDate", "birth_date"]
+      severity: high
+      action: warn
+    - name: "diagnosis-code"
+      description: "ICD-10 diagnosis codes in patient context"
+      regex: "\\b[A-Z]\\d{2}\\.\\d{1,4}\\b"
+      severity: medium
+      action: log
+
+rules:
+  - id: "hipaa-minimum-necessary"
+    text: "Apply HIPAA minimum necessary principle — never access, store, or transmit more PHI than required for the specific task"
+    applies_to: ["all"]
+    severity: mandatory
+  - id: "hipaa-audit-logging"
+    text: "All PHI access must be audit-logged with who, what, when, and why"
+    applies_to: ["soren-backend", "lena-integration", "anya-data", "ravi-devops"]
+    severity: mandatory
+  - id: "hipaa-encryption"
+    text: "PHI must be encrypted at rest (AES-256) and in transit (TLS 1.2+)"
+    applies_to: ["soren-backend", "ravi-devops"]
+    severity: mandatory
+  - id: "fhir-us-core"
+    text: "FHIR resources must conform to US Core profiles when targeting ONC certification"
+    applies_to: ["soren-backend", "lena-integration", "anya-data"]
+    severity: recommended
+
+skills:
+  - id: "fhir-resource-modeling"
+    name: "FHIR Resource Modeling"
+    file: "skills/fhir-resource-modeling/SKILL.md"
+    description: "FHIR R4 resource profiling, US Core conformance, extensions, data types"
+    relevance_keywords: ["fhir", "resource", "profile", "us-core", "structuredefinition"]
+    recommended_agents: ["winston-architect", "soren-backend", "lena-integration", "anya-data"]
+  - id: "hl7v2-messaging"
+    name: "HL7v2 Messaging"
+    file: "skills/hl7v2-messaging/SKILL.md"
+    description: "HL7v2 message parsing, ADT/ORM/ORU/SIU, segment manipulation, transforms"
+    relevance_keywords: ["hl7v2", "hl7", "adt", "orm", "oru", "mllp", "segment"]
+    recommended_agents: ["lena-integration", "anya-data"]
+  - id: "smart-on-fhir"
+    name: "SMART on FHIR"
+    file: "skills/smart-on-fhir/SKILL.md"
+    description: "SMART App Launch, OAuth2 scopes, EHR launch context, standalone launch"
+    relevance_keywords: ["smart", "smart-on-fhir", "oauth", "launch", "ehr-launch"]
+    recommended_agents: ["soren-backend", "milo-frontend", "kai-security"]
+  - id: "hipaa-technical-safeguards"
+    name: "HIPAA Technical Safeguards"
+    file: "skills/hipaa-technical-safeguards/SKILL.md"
+    description: "HIPAA 164.312 technical safeguards — access control, audit, integrity, transmission"
+    relevance_keywords: ["hipaa", "safeguard", "encryption", "audit", "access-control"]
+    recommended_agents: ["soren-backend", "ravi-devops", "kai-security", "vera-compliance"]
+  - id: "us-core-uscdi"
+    name: "US Core & USCDI"
+    file: "skills/us-core-uscdi/SKILL.md"
+    description: "US Core profiles, USCDI v3 data classes, ONC certification data requirements"
+    relevance_keywords: ["us-core", "uscdi", "onc", "certification", "data-class"]
+    recommended_agents: ["anya-data", "soren-backend", "vera-compliance"]
+  - id: "ihe-profiles"
+    name: "IHE Integration Profiles"
+    file: "skills/ihe-profiles/SKILL.md"
+    description: "IHE PIX/PDQ, MHD, ATNA, XCA, XDS integration profiles"
+    relevance_keywords: ["ihe", "pix", "pdq", "xds", "xca", "atna", "mhd"]
+    recommended_agents: ["lena-integration", "winston-architect"]
+  - id: "terminology-services"
+    name: "Healthcare Terminology Services"
+    file: "skills/terminology-services/SKILL.md"
+    description: "SNOMED CT, ICD-10, LOINC, RxNorm, CPT — terminology binding and translation"
+    relevance_keywords: ["snomed", "icd-10", "loinc", "rxnorm", "terminology", "valueset"]
+    recommended_agents: ["anya-data", "lena-integration"]
+  - id: "cds-hooks"
+    name: "CDS Hooks"
+    file: "skills/cds-hooks/SKILL.md"
+    description: "Clinical Decision Support hooks, prefetch, cards, feedback"
+    relevance_keywords: ["cds", "clinical-decision", "hooks", "prefetch", "cards"]
+    recommended_agents: ["soren-backend", "winston-architect"]
+  - id: "bulk-fhir"
+    name: "Bulk FHIR"
+    file: "skills/bulk-fhir/SKILL.md"
+    description: "FHIR Bulk Data Access ($export), NDJSON, backend services authorization"
+    relevance_keywords: ["bulk", "export", "ndjson", "backend-services", "population"]
+    recommended_agents: ["soren-backend", "anya-data"]
+  - id: "tefca-hie"
+    name: "TEFCA & Health Information Exchange"
+    file: "skills/tefca-hie/SKILL.md"
+    description: "Trusted Exchange Framework, QHINs, designated use cases"
+    relevance_keywords: ["tefca", "hie", "qhin", "exchange", "network"]
+    recommended_agents: ["lena-integration", "winston-architect"]
+  - id: "phi-deidentification"
+    name: "PHI De-Identification"
+    file: "skills/phi-deidentification/SKILL.md"
+    description: "Safe Harbor method, Expert Determination, de-identification for research"
+    relevance_keywords: ["de-identification", "deidentify", "safe-harbor", "anonymize"]
+    recommended_agents: ["anya-data", "vera-compliance"]
+  - id: "clinical-workflow-design"
+    name: "Clinical Workflow Design"
+    file: "skills/clinical-workflow-design/SKILL.md"
+    description: "Clinical order workflows, referral flows, care coordination patterns"
+    relevance_keywords: ["clinical", "workflow", "order", "referral", "care-coordination"]
+    recommended_agents: ["maya-analyst", "winston-architect"]
+  - id: "onc-certification"
+    name: "ONC Health IT Certification"
+    file: "skills/onc-certification/SKILL.md"
+    description: "ONC certification criteria, SVAP, real-world testing, Conditions of Certification"
+    relevance_keywords: ["onc", "certification", "svap", "real-world-testing", "g10"]
+    recommended_agents: ["vera-compliance", "nadia-pm"]
+  - id: "healthcare-api-design"
+    name: "Healthcare API Design"
+    file: "skills/healthcare-api-design/SKILL.md"
+    description: "RESTful FHIR APIs, CapabilityStatement, pagination, error handling, SMART scopes"
+    relevance_keywords: ["api", "fhir-api", "capability", "rest", "endpoint"]
+    recommended_agents: ["soren-backend", "winston-architect"]
+  - id: "devops-healthcare"
+    name: "Healthcare DevOps"
+    file: "skills/devops-healthcare/SKILL.md"
+    description: "HIPAA-compliant infrastructure, BAA management, encryption, audit infrastructure"
+    relevance_keywords: ["hipaa-infra", "baa", "compliant-hosting", "healthcare-cloud"]
+    recommended_agents: ["ravi-devops"]
