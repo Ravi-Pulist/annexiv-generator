@@ -142,8 +142,24 @@ sections:
     evidence_sources:
       - extractor: attested_docs
         yields: ATTESTED
-        supports: [a, b, d, e, g, h]
-        looks_for: "model card intended-use / deployment sections, signed and dated"
+        supports: [a]
+        via_keys: ["doc.intended_purpose"]
+        looks_for: "model card intended-purpose section, signed and dated"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [b, d, e]
+        via_keys: ["doc.deployment_forms"]
+        looks_for: "how the system interacts with other software/hardware, the forms it is placed on the market in, and the hardware it runs on"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [g]
+        via_keys: ["doc.user_interface"]
+        looks_for: "description of the user interface provided to the deployer"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [h]
+        via_keys: ["doc.instructions_for_use"]
+        looks_for: "instructions for use for the deployer"
       - extractor: git
         yields: MEASURED
         supports: [a, c]
@@ -186,8 +202,29 @@ sections:
         looks_for: "validation/test procedure, split description, metrics with intervals, dated signed test report"
       - extractor: attested_docs
         yields: ATTESTED
-        supports: [b, d, e, f, h]
-        looks_for: "design-rationale doc, labelling-procedure doc, human-oversight assessment, cybersecurity measures — each signed and dated"
+        supports: [b]
+        via_keys: ["doc.design_rationale"]
+        looks_for: "design-rationale document: general logic, key design choices, what the system optimises for, trade-offs"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [d]
+        via_keys: ["doc.labelling_procedure", "doc.data_provenance"]
+        looks_for: "labelling-procedure and data-provenance documents, signed and dated"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [e]
+        via_keys: ["doc.human_oversight"]
+        looks_for: "human-oversight assessment under Article 14"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [f]
+        via_keys: ["doc.predetermined_changes"]
+        looks_for: "description of pre-determined changes and how continuous compliance is maintained"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [h]
+        via_keys: ["doc.cybersecurity"]
+        looks_for: "cybersecurity measures put in place"
     complete_when: "every subpoint a-h has a source or a gap entry; 2(g) additionally requires the test report to be dated and attributable"
 
   - number: 3
@@ -224,8 +261,19 @@ sections:
         looks_for: "typed input model (pydantic) or declared input schema"
       - extractor: attested_docs
         yields: ATTESTED
-        supports: [overall_accuracy, unintended_outcomes, human_oversight]
-        looks_for: "model-card limitations section, foreseeable-misuse analysis, oversight description"
+        supports: [overall_accuracy]
+        via_keys: ["doc.limitations"]
+        looks_for: "model-card capabilities and limitations section"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [unintended_outcomes]
+        via_keys: ["doc.unintended_outcomes"]
+        looks_for: "foreseeable unintended outcomes and sources of risk"
+      - extractor: attested_docs
+        yields: ATTESTED
+        supports: [human_oversight]
+        via_keys: ["doc.human_oversight"]
+        looks_for: "human-oversight measures under Article 14"
     complete_when: "all five limbs sourced or gapped; subgroup accuracy is its own check and its absence is a named gap"
 
   - number: 4
@@ -237,6 +285,7 @@ sections:
       - extractor: attested_docs
         yields: ATTESTED
         supports: [whole]
+        via_keys: ["doc.metric_rationale"]
         looks_for: "metric-rationale prose, signed — why THESE metrics for THIS intended purpose"
       - extractor: eval_report
         yields: MEASURED
@@ -288,6 +337,7 @@ sections:
       - extractor: attested_docs
         yields: ATTESTED
         supports: [standards_applied, alternative_solutions]
+        via_keys: ["doc.standards"]
         looks_for: "declared standards list (e.g. standards.yaml or a signed standards section)"
     complete_when: "either a standards list exists, or an attested alternative-solutions description exists; neither present is a named gap"
 

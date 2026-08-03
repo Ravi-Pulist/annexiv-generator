@@ -1,0 +1,14 @@
+{
+  "citations_attested": 17,
+  "citations_measured": 30,
+  "claims_evidence_backed": 23,
+  "claims_gapped": 6,
+  "claims_total": 29,
+  "gaps_permanent": 1,
+  "gaps_total": 6,
+  "repo_commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+  "sections_addressed": 9,
+  "sections_total": 9,
+  "spec_version": "1.0",
+  "tool_version": "0.1.0"
+}

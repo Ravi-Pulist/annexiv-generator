@@ -1,0 +1,852 @@
+{
+  "classification_route": "annex_i",
+  "completion": {
+    "citations_attested": 17,
+    "citations_measured": 30,
+    "claims_evidence_backed": 23,
+    "claims_gapped": 6,
+    "claims_total": 29,
+    "gaps_permanent": 1,
+    "gaps_total": 6,
+    "repo_commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+    "sections_addressed": 9,
+    "sections_total": 9,
+    "spec_version": "1.0",
+    "tool_version": "0.1.0"
+  },
+  "evidence": [
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "eval_report",
+      "id": "ev_0280bc1a",
+      "locator": "operating_point",
+      "provides": [
+        "eval.operating_point"
+      ],
+      "role": null,
+      "source_path": "eval/report.json",
+      "source_sha256": "a1567d51845d1646bd92dd55cff599938f9b40fb4582ae18c16572998c84529a",
+      "summary": "operating threshold 0.417586 with a stated rationale"
+    },
+    {
+      "attested_by": "M. Ferreira",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_08055ed7",
+      "locator": "front-matter:labelling_procedure",
+      "provides": [
+        "doc.labelling_procedure",
+        "declared.2(d)"
+      ],
+      "role": "Machine Learning Lead",
+      "source_path": "docs/labelling-procedure.md",
+      "source_sha256": "b489918dda34bcbafa66f6a5026334685070b269548c6f6713cab7eb9f01d8b9",
+      "summary": "labelling procedure signed by M. Ferreira (Machine Learning Lead) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "changelog",
+      "id": "ev_0a716a17",
+      "locator": "versions",
+      "provides": [
+        "changelog.lifecycle_changes"
+      ],
+      "role": null,
+      "source_path": "CHANGELOG.md",
+      "source_sha256": "30a61cf68ef19be0f747aa6aaf5f8250276ef03050dc8fb524872d1605e75b85",
+      "summary": "2 released version(s) with described changes: 0.2.0, 0.1.0"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "git",
+      "id": "ev_2136f59f",
+      "locator": "tags",
+      "provides": [
+        "git.versions",
+        "git.version_relation"
+      ],
+      "role": null,
+      "source_path": ".git",
+      "source_sha256": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "summary": "2 released version(s) tagged: v0.1.0, v0.2.0; current version v0.2.0"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "dataset_manifest",
+      "id": "ev_237e8594",
+      "locator": "files",
+      "provides": [
+        "data.provenance",
+        "data.scope",
+        "data.identified"
+      ],
+      "role": null,
+      "source_path": "data/manifest.json",
+      "source_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+      "summary": "3 dataset file(s) identified by SHA-256; splits {'train': 2409, 'val': 802, 'test': 805}; generated synthetically from a seeded script; seed 20260804"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "eval_report",
+      "id": "ev_30f5c44f",
+      "locator": "dataset_manifest_sha256",
+      "provides": [
+        "eval.testing_data_identified"
+      ],
+      "role": null,
+      "source_path": "eval/report.json",
+      "source_sha256": "a1567d51845d1646bd92dd55cff599938f9b40fb4582ae18c16572998c84529a",
+      "summary": "evaluation pinned to dataset manifest e5f59498c403c56f… — the test data used is identified by hash"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "eval_report",
+      "id": "ev_32e8213c",
+      "locator": "metrics",
+      "provides": [
+        "eval.overall_accuracy",
+        "eval.metrics_defined",
+        "eval.validation_procedure"
+      ],
+      "role": null,
+      "source_path": "eval/report.json",
+      "source_sha256": "a1567d51845d1646bd92dd55cff599938f9b40fb4582ae18c16572998c84529a",
+      "summary": "held-out evaluation on split 'test' (n=805): auroc, npv, ppv, sensitivity, specificity; 4 with 95% intervals (npv, ppv, sensitivity, specificity)"
+    },
+    {
+      "attested_by": "M. Ferreira",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_46d4f2b7",
+      "locator": "front-matter:metric_rationale",
+      "provides": [
+        "doc.metric_rationale",
+        "declared.4"
+      ],
+      "role": "Machine Learning Lead",
+      "source_path": "docs/metric-rationale.md",
+      "source_sha256": "6d9e8d2701a51e0e10e61ec09cb3eec992b27ce9a97ea45f1c9e1686eff3c260",
+      "summary": "metric rationale signed by M. Ferreira (Machine Learning Lead) on 2026-08-04"
+    },
+    {
+      "attested_by": "Dr. A. Nowak",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_528ec767",
+      "locator": "front-matter:model_card",
+      "provides": [
+        "doc.intended_purpose",
+        "doc.deployment_forms",
+        "doc.user_interface",
+        "doc.instructions_for_use",
+        "doc.limitations",
+        "doc.unintended_outcomes",
+        "declared.1(a)",
+        "declared.1(b)",
+        "declared.1(d)",
+        "declared.1(g)",
+        "declared.1(h)",
+        "declared.3"
+      ],
+      "role": "Clinical Lead",
+      "source_path": "docs/model-card.md",
+      "source_sha256": "9d7850789897f98323e2767defbbf47f43279a452929689b04a9659d642e7886",
+      "summary": "model card signed by Dr. A. Nowak (Clinical Lead) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "input_schema",
+      "id": "ev_7b1ba4b3",
+      "locator": "class:EncounterFeatures",
+      "provides": [
+        "schema.input_specification"
+      ],
+      "role": null,
+      "source_path": "input_schema.py",
+      "source_sha256": "0fe8caec7cde0853192c4cc11ac172d213a07cb3ee91df576c8899bfd3b73e87",
+      "summary": "typed input specification EncounterFeatures with 11 declared field(s): heart_rate, systolic_bp, diastolic_bp, respiratory_rate, spo2, temperature, wbc, lactate, creatinine, age_years, sex"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "custody",
+      "id": "ev_86120b62",
+      "locator": "bom",
+      "provides": [
+        "custody.mlbom"
+      ],
+      "role": null,
+      "source_path": "custody/ml-bom.json",
+      "source_sha256": "0b1687d5410b345ed73159c8d4984190f3bb07d8cfc99e3742834025a72e990b",
+      "summary": "CycloneDX 1.6 ML-BOM: 1 component(s), 1 machine-learning-model"
+    },
+    {
+      "attested_by": "J. Lindqvist",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_95567c1f",
+      "locator": "front-matter:cybersecurity_measures",
+      "provides": [
+        "doc.cybersecurity",
+        "declared.2(h)"
+      ],
+      "role": "Information Security Officer",
+      "source_path": "docs/cybersecurity-measures.md",
+      "source_sha256": "8260aa6b21f93fc1730c692d0176148f51ebeefe5eb7a45147e03fbaaaceea2c",
+      "summary": "cybersecurity measures signed by J. Lindqvist (Information Security Officer) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "dataset_manifest",
+      "id": "ev_a2bc50c9",
+      "locator": "generator_sha256",
+      "provides": [
+        "data.reproducible"
+      ],
+      "role": null,
+      "source_path": "data/manifest.json",
+      "source_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+      "summary": "the data-generation script itself is pinned by hash a56d87988b52ea18… — the dataset is reproducible, not merely described"
+    },
+    {
+      "attested_by": "Dr. A. Nowak",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-11-01",
+      "extractor": "risk_log",
+      "id": "ev_af47f796",
+      "locator": "risks",
+      "provides": [
+        "risk.log_structured"
+      ],
+      "role": "risk owner",
+      "source_path": "risk-log.yaml",
+      "source_sha256": "b60b840cfc5a5aa8203672aa00cd5d11c74da4d1ca5b58af8d9fbe4966c22cf9",
+      "summary": "9 risks, each with owner, status, mitigation and review date (2 accepted, 3 mitigated, 4 open); owners: Dr. A. Nowak, H. Bauer, J. Lindqvist, M. Ferreira, S. Okonkwo"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "eval_report",
+      "id": "ev_b3f42b7c",
+      "locator": "signature",
+      "provides": [
+        "eval.signed_report"
+      ],
+      "role": null,
+      "source_path": "eval/report.json",
+      "source_sha256": "a1567d51845d1646bd92dd55cff599938f9b40fb4582ae18c16572998c84529a",
+      "summary": "test report attributed to Dr. A. Nowak (Clinical Lead, deterioration screen demonstrator) dated 2026-08-04"
+    },
+    {
+      "attested_by": "M. Ferreira",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_ba16b846",
+      "locator": "front-matter:design_rationale",
+      "provides": [
+        "doc.design_rationale",
+        "declared.2(b)"
+      ],
+      "role": "Machine Learning Lead",
+      "source_path": "docs/design-rationale.md",
+      "source_sha256": "a23eda3b7d4483f1ad258604ca99cb1168398358ad4a71e10b6fdf760dfcdf3f",
+      "summary": "design rationale signed by M. Ferreira (Machine Learning Lead) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "dataset_manifest",
+      "id": "ev_bdbb246e",
+      "locator": "selection",
+      "provides": [
+        "data.selection"
+      ],
+      "role": null,
+      "source_path": "data/manifest.json",
+      "source_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+      "summary": "selection rule applied: Exclude any synthetic encounter with fewer than 6 hours of recorded observation. Such encounters cannot express a deterioration trajectory and their vitals are dominated by admission-time values. Applied before splitting so that an excluded encounter cannot appear in any split. (excluded 384 rows)"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "git",
+      "id": "ev_c8e0c35a",
+      "locator": "history",
+      "provides": [
+        "git.lifecycle_changes"
+      ],
+      "role": null,
+      "source_path": ".git",
+      "source_sha256": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "summary": "12 commits from 1c29bd9a to df2b1ee8 documenting changes across the system's lifecycle"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "dataset_manifest",
+      "id": "ev_cc7257b2",
+      "locator": "label_definition",
+      "provides": [
+        "data.labelling"
+      ],
+      "role": null,
+      "source_path": "data/manifest.json",
+      "source_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+      "summary": "label definition recorded: label = 1 ('deteriorated') is sampled from Bernoulli(p) where p = sigmoid(0.55 * (risk_points - 6.8) + 0.012 * (age_years - 65)). risk_points is a NEWS2-inspired ordinal score computed from the TRUE (pre-measurement-error) physiology: respiratory rate, SpO2, systolic blood pressure, heart rate and temperature each contribute 0-3 points on the published NEWS2 cut-points, plus 2 points for lactate >= 2.0 mmol/L, 1 further point for lactate >= 4.0 mmol/L, 1 point for creatinine >= 150 umol/L and 1 point for a white cell count outside 4.0-12.0 x10^9/L. The label is therefore a noisy function of physiology the model cannot observe directly, not a deterministic threshold on the recorded columns."
+    },
+    {
+      "attested_by": "S. Okonkwo",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_d04d8a2f",
+      "locator": "front-matter:human_oversight",
+      "provides": [
+        "doc.human_oversight",
+        "declared.2(e)",
+        "declared.3"
+      ],
+      "role": "Nurse Consultant, Critical Care Outreach",
+      "source_path": "docs/human-oversight.md",
+      "source_sha256": "67a23bd0acb2272814571edf3abd15bee13a694e6b772db571a7bd9bf3f2c6d2",
+      "summary": "human oversight signed by S. Okonkwo (Nurse Consultant, Critical Care Outreach) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "custody",
+      "id": "ev_dba5b0e5",
+      "locator": "models",
+      "provides": [
+        "custody.model_pinned",
+        "custody.licences"
+      ],
+      "role": null,
+      "source_path": "custody/register.json",
+      "source_sha256": "01d81c9da1962be3f3d3e451491de2298b5dae1bb22729cfc41af762c0262473",
+      "summary": "1 model(s) pinned by checkpoint SHA-256 with licences: MIT"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "dataset_manifest",
+      "id": "ev_dbd3890d",
+      "locator": "cleaning",
+      "provides": [
+        "data.cleaning"
+      ],
+      "role": null,
+      "source_path": "data/manifest.json",
+      "source_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+      "summary": "cleaning methodology: Implausible-range rejection followed by median imputation. (1) Every physiological cell is tested against a fixed clinical plausibility interval declared in config/training.yaml (data.cleaning.bounds). The intervals are constants, not percentiles, so no information crosses a split boundary. A cell outside its interval is treated as a device or charting artefact -- a disconnected probe, a zeroed monitor, a mis-scaled result -- and is discarded rather than winsorised, because clipping a disconnected SpO2 probe to the lower bound would manufacture a plausible-looking severe hypoxia. 153 cells were rejected this way. (2) Discarded cells and cells that were already blank are filled with the median of that column computed on the TRAIN split only; those constants are then applied unchanged to val and test. 188 cells were already blank, so 341 cells were imputed in total. 'modified' counts cells, not rows. (modified 341 values)"
+    },
+    {
+      "attested_by": "H. Bauer",
+      "cls": "ATTESTED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": "2026-08-04",
+      "extractor": "attested_docs",
+      "id": "ev_f396bcef",
+      "locator": "front-matter:standards",
+      "provides": [
+        "doc.standards",
+        "declared.7"
+      ],
+      "role": "Quality and Regulatory Manager",
+      "source_path": "docs/standards.md",
+      "source_sha256": "6a4666d7103e1d79d8bed5929cd2ea6eb9fa6b08ae1f6501a5615e6c4d44b545",
+      "summary": "standards signed by H. Bauer (Quality and Regulatory Manager) on 2026-08-04"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "manifests",
+      "id": "ev_ffe489fb",
+      "locator": "dependencies",
+      "provides": [
+        "deps.third_party",
+        "deps.versions"
+      ],
+      "role": null,
+      "source_path": "requirements.txt",
+      "source_sha256": "74f13bb2d7aa4aacc064d65dbba9e0dee340e92fe9327648d803f3c9ddb689c8",
+      "summary": "third-party components declared in requirements.txt: 8/8 dependencies pinned to exact versions"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "gap_d6449208",
+      "kind": "absent",
+      "permanent": false,
+      "reason": "no evidence source in this repository covers this requirement",
+      "remediation": "produce the artefact named in the mapping spec for this section",
+      "requirement": "where the AI system is a component of products, photographs or illustrations showing external features, the marking and internal layout of those products;",
+      "section": 1,
+      "subpoint": "f"
+    },
+    {
+      "id": "gap_ae058556",
+      "kind": "absent",
+      "permanent": false,
+      "reason": "no signed document in the repository covers this requirement",
+      "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+      "requirement": "where applicable, a detailed description of pre-determined changes to the AI system and its performance, together with all the relevant information related to the technical solutions adopted to ensure continuous compliance of the AI system with the relevant requirements set out in Chapter III, Section 2;",
+      "section": 2,
+      "subpoint": "f"
+    },
+    {
+      "id": "gap_e54f2c3e",
+      "kind": "absent",
+      "permanent": false,
+      "reason": "the evaluation report contains no per-subgroup accuracy breakdown (the file is present; this section of it is not)",
+      "remediation": "compute and record accuracy per relevant subgroup in the eval report's subgroup_breakdown field",
+      "requirement": "the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used",
+      "section": 3,
+      "subpoint": "subgroup_accuracy"
+    },
+    {
+      "id": "gap_57fe78de",
+      "kind": "by_design",
+      "permanent": true,
+      "reason": "The EU declaration of conformity is a legal act executed by the provider under Article 47. It is not derivable from a repository and this tool will never generate, draft or template it. Flagged as a permanent by-design gap in every pack, including packs that are otherwise complete.",
+      "remediation": "the provider draws up and signs the EU declaration of conformity itself; this tool will never generate, draft or template it",
+      "requirement": "A copy of the EU declaration of conformity referred to in Article 47;",
+      "section": 8,
+      "subpoint": null
+    },
+    {
+      "id": "gap_70e3fe82",
+      "kind": "absent",
+      "permanent": false,
+      "reason": "no signed document in the repository covers this requirement",
+      "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+      "requirement": "the system in place to evaluate post-market performance (Article 72)",
+      "section": 9,
+      "subpoint": "evaluation_system"
+    },
+    {
+      "id": "gap_c6431286",
+      "kind": "absent",
+      "permanent": false,
+      "reason": "no signed document in the repository covers this requirement",
+      "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+      "requirement": "the post-market monitoring plan (Article 72(3)) — a distinct named artefact",
+      "section": 9,
+      "subpoint": "monitoring_plan"
+    }
+  ],
+  "repo_commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+  "repo_name": "toy-deterioration-model",
+  "sections": [
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_528ec767",
+            "ev_2136f59f",
+            "ev_c8e0c35a"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "a",
+          "text": "its intended purpose, the name of the provider and the version of the system reflecting its relation to previous versions;"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "b",
+          "text": "how the AI system interacts with, or can be used to interact with, hardware or software, including with other AI systems, that are not part of the AI system itself, where applic…"
+        },
+        {
+          "evidence_ids": [
+            "ev_2136f59f",
+            "ev_c8e0c35a",
+            "ev_ffe489fb"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "c",
+          "text": "the versions of relevant software or firmware, and any requirements related to version updates;"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "d",
+          "text": "the description of all the forms in which the AI system is placed on the market or put into service, such as software packages embedded into hardware, downloads, or APIs;"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767",
+            "ev_ffe489fb"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "e",
+          "text": "the description of the hardware on which the AI system is intended to run;"
+        },
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_d6449208",
+          "section": 1,
+          "subpoint": "f",
+          "text": "where the AI system is a component of products, photographs or illustrations showing external features, the marking and internal layout of those products;"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "g",
+          "text": "a basic description of the user-interface provided to the deployer;"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767"
+          ],
+          "gap_id": null,
+          "section": 1,
+          "subpoint": "h",
+          "text": "instructions for use for the deployer, and a basic description of the user-interface provided to the deployer, where applicable;"
+        }
+      ],
+      "gapped": [
+        "f"
+      ],
+      "number": 1,
+      "state": "partial",
+      "title": "General description of the AI system"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_86120b62",
+            "ev_dba5b0e5",
+            "ev_ffe489fb"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "a",
+          "text": "the methods and steps performed for the development of the AI system, including, where relevant, recourse to pre-trained systems or tools provided by third parties and how those…"
+        },
+        {
+          "evidence_ids": [
+            "ev_ba16b846"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "b",
+          "text": "the design specifications of the system, namely the general logic of the AI system and of the algorithms; the key design choices including the rationale and assumptions made, in…"
+        },
+        {
+          "evidence_ids": [
+            "ev_ffe489fb"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "c",
+          "text": "the description of the system architecture explaining how software components build on or feed into each other and integrate into the overall processing; the computational resou…"
+        },
+        {
+          "evidence_ids": [
+            "ev_08055ed7",
+            "ev_86120b62",
+            "ev_dba5b0e5",
+            "ev_237e8594",
+            "ev_a2bc50c9",
+            "ev_bdbb246e",
+            "ev_cc7257b2",
+            "ev_dbd3890d"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "d",
+          "text": "where relevant, the data requirements in terms of datasheets describing the training methodologies and techniques and the training data sets used, including a general descriptio…"
+        },
+        {
+          "evidence_ids": [
+            "ev_d04d8a2f"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "e",
+          "text": "assessment of the human oversight measures needed in accordance with Article 14, including an assessment of the technical measures needed to facilitate the interpretation of the…"
+        },
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_ae058556",
+          "section": 2,
+          "subpoint": "f",
+          "text": "where applicable, a detailed description of pre-determined changes to the AI system and its performance, together with all the relevant information related to the technical solu…"
+        },
+        {
+          "evidence_ids": [
+            "ev_0280bc1a",
+            "ev_30f5c44f",
+            "ev_32e8213c",
+            "ev_b3f42b7c"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "g",
+          "text": "the validation and testing procedures used, including information about the validation and testing data used and their main characteristics; metrics used to measure accuracy, ro…"
+        },
+        {
+          "evidence_ids": [
+            "ev_95567c1f"
+          ],
+          "gap_id": null,
+          "section": 2,
+          "subpoint": "h",
+          "text": "cybersecurity measures put in place;"
+        }
+      ],
+      "gapped": [
+        "f"
+      ],
+      "number": 2,
+      "state": "partial",
+      "title": "Elements of the AI system and its development process"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_d04d8a2f"
+          ],
+          "gap_id": null,
+          "section": 3,
+          "subpoint": "human_oversight",
+          "text": "human oversight measures needed in accordance with Article 14"
+        },
+        {
+          "evidence_ids": [
+            "ev_7b1ba4b3"
+          ],
+          "gap_id": null,
+          "section": 3,
+          "subpoint": "input_specifications",
+          "text": "specifications on input data, as appropriate"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767",
+            "ev_32e8213c"
+          ],
+          "gap_id": null,
+          "section": 3,
+          "subpoint": "overall_accuracy",
+          "text": "the overall expected level of accuracy in relation to the intended purpose"
+        },
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_e54f2c3e",
+          "section": 3,
+          "subpoint": "subgroup_accuracy",
+          "text": "the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used"
+        },
+        {
+          "evidence_ids": [
+            "ev_528ec767"
+          ],
+          "gap_id": null,
+          "section": 3,
+          "subpoint": "unintended_outcomes",
+          "text": "foreseeable unintended outcomes and sources of risk to health, safety, fundamental rights, discrimination"
+        }
+      ],
+      "gapped": [
+        "subgroup_accuracy"
+      ],
+      "number": 3,
+      "state": "partial",
+      "title": "Monitoring, functioning and control of the AI system"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_46d4f2b7",
+            "ev_0280bc1a",
+            "ev_30f5c44f",
+            "ev_32e8213c",
+            "ev_b3f42b7c"
+          ],
+          "gap_id": null,
+          "section": 4,
+          "subpoint": "whole",
+          "text": "A description of the appropriateness of the performance metrics for the specific AI system;"
+        }
+      ],
+      "gapped": [],
+      "number": 4,
+      "state": "supported",
+      "title": "Appropriateness of the performance metrics"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_af47f796"
+          ],
+          "gap_id": null,
+          "section": 5,
+          "subpoint": "whole",
+          "text": "A detailed description of the risk management system in accordance with Article 9;"
+        }
+      ],
+      "gapped": [],
+      "number": 5,
+      "state": "attested_only",
+      "title": "Risk management system"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_0a716a17",
+            "ev_2136f59f",
+            "ev_c8e0c35a"
+          ],
+          "gap_id": null,
+          "section": 6,
+          "subpoint": "whole",
+          "text": "A description of relevant changes made by the provider to the system through its lifecycle;"
+        }
+      ],
+      "gapped": [],
+      "number": 6,
+      "state": "supported",
+      "title": "Lifecycle changes"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [
+            "ev_f396bcef"
+          ],
+          "gap_id": null,
+          "section": 7,
+          "subpoint": "alternative_solutions",
+          "text": "where none applied: description of the solutions adopted, plus other standards/specifications applied"
+        },
+        {
+          "evidence_ids": [
+            "ev_f396bcef"
+          ],
+          "gap_id": null,
+          "section": 7,
+          "subpoint": "standards_applied",
+          "text": "list of harmonised standards applied in full or in part"
+        }
+      ],
+      "gapped": [],
+      "number": 7,
+      "state": "attested_only",
+      "title": "Harmonised standards applied, or alternative solutions"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_57fe78de",
+          "section": 8,
+          "subpoint": null,
+          "text": "A copy of the EU declaration of conformity referred to in Article 47;"
+        }
+      ],
+      "gapped": [
+        "whole"
+      ],
+      "number": 8,
+      "state": "by_design_gap",
+      "title": "EU declaration of conformity"
+    },
+    {
+      "claims": [
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_70e3fe82",
+          "section": 9,
+          "subpoint": "evaluation_system",
+          "text": "the system in place to evaluate post-market performance (Article 72)"
+        },
+        {
+          "evidence_ids": [],
+          "gap_id": "gap_c6431286",
+          "section": 9,
+          "subpoint": "monitoring_plan",
+          "text": "the post-market monitoring plan (Article 72(3)) — a distinct named artefact"
+        }
+      ],
+      "gapped": [
+        "evaluation_system",
+        "monitoring_plan"
+      ],
+      "number": 9,
+      "state": "missing",
+      "title": "Post-market performance evaluation system"
+    }
+  ],
+  "spec_version": "1.0",
+  "tool_version": "0.1.0"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "gap_d6449208",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no evidence source in this repository covers this requirement",
+    "remediation": "produce the artefact named in the mapping spec for this section",
+    "requirement": "where the AI system is a component of products, photographs or illustrations showing external features, the marking and internal layout of those products;",
+    "section": 1,
+    "subpoint": "f"
+  },
+  {
+    "id": "gap_ae058556",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "where applicable, a detailed description of pre-determined changes to the AI system and its performance, together with all the relevant information related to the technical solutions adopted to ensure continuous compliance of the AI system with the relevant requirements set out in Chapter III, Section 2;",
+    "section": 2,
+    "subpoint": "f"
+  },
+  {
+    "id": "gap_e54f2c3e",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "the evaluation report contains no per-subgroup accuracy breakdown (the file is present; this section of it is not)",
+    "remediation": "compute and record accuracy per relevant subgroup in the eval report's subgroup_breakdown field",
+    "requirement": "the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used",
+    "section": 3,
+    "subpoint": "subgroup_accuracy"
+  },
+  {
+    "id": "gap_57fe78de",
+    "kind": "by_design",
+    "permanent": true,
+    "reason": "The EU declaration of conformity is a legal act executed by the provider under Article 47. It is not derivable from a repository and this tool will never generate, draft or template it. Flagged as a permanent by-design gap in every pack, including packs that are otherwise complete.",
+    "remediation": "the provider draws up and signs the EU declaration of conformity itself; this tool will never generate, draft or template it",
+    "requirement": "A copy of the EU declaration of conformity referred to in Article 47;",
+    "section": 8,
+    "subpoint": null
+  },
+  {
+    "id": "gap_70e3fe82",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the system in place to evaluate post-market performance (Article 72)",
+    "section": 9,
+    "subpoint": "evaluation_system"
+  },
+  {
+    "id": "gap_c6431286",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the post-market monitoring plan (Article 72(3)) — a distinct named artefact",
+    "section": 9,
+    "subpoint": "monitoring_plan"
+  }
+]
