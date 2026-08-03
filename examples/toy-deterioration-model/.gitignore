@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.ipynb_checkpoints/
+*.egg-info/
+
+# NOTE: data/*.csv and models/*.joblib are deliberately NOT ignored.
+# They are part of the evidence trail: data/manifest.json and
+# custody/register.json pin them by SHA-256 and the test suite verifies
+# that the pinned digests match the bytes on disk.

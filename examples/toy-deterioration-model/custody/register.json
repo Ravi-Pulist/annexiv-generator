@@ -1,0 +1,12 @@
+{
+  "models": [
+    {
+      "id": "deterioration-clf",
+      "name": "Deterioration early-warning screen (synthetic-data demonstrator)",
+      "sha256": "6e9c8d7fc40aac6bced0f4e86517f47a120d31474bf9376a8ab00fc62c68c368",
+      "licence": "MIT",
+      "source": "trained in-repo from data/train.csv",
+      "pinned_at_commit": null
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "manifest_version": "1.0",
+  "seed": 20260804,
+  "synthetic_only": true,
+  "generator_sha256": "a56d87988b52ea184f604f5fd872958db04851ba61a72f0155b42b1b8baf6d3a",
+  "rows": {
+    "train": 2409,
+    "val": 802,
+    "test": 805
+  },
+  "selection": {
+    "rule": "Exclude any synthetic encounter with fewer than 6 hours of recorded observation. Such encounters cannot express a deterioration trajectory and their vitals are dominated by admission-time values. Applied before splitting so that an excluded encounter cannot appear in any split.",
+    "excluded": 384
+  },
+  "cleaning": {
+    "method": "Implausible-range rejection followed by median imputation. (1) Every physiological cell is tested against a fixed clinical plausibility interval declared in config/training.yaml (data.cleaning.bounds). The intervals are constants, not percentiles, so no information crosses a split boundary. A cell outside its interval is treated as a device or charting artefact -- a disconnected probe, a zeroed monitor, a mis-scaled result -- and is discarded rather than winsorised, because clipping a disconnected SpO2 probe to the lower bound would manufacture a plausible-looking severe hypoxia. 153 cells were rejected this way. (2) Discarded cells and cells that were already blank are filled with the median of that column computed on the TRAIN split only; those constants are then applied unchanged to val and test. 188 cells were already blank, so 341 cells were imputed in total. 'modified' counts cells, not rows.",
+    "modified": 341
+  },
+  "label_definition": "label = 1 ('deteriorated') is sampled from Bernoulli(p) where p = sigmoid(0.55 * (risk_points - 6.8) + 0.012 * (age_years - 65)). risk_points is a NEWS2-inspired ordinal score computed from the TRUE (pre-measurement-error) physiology: respiratory rate, SpO2, systolic blood pressure, heart rate and temperature each contribute 0-3 points on the published NEWS2 cut-points, plus 2 points for lactate >= 2.0 mmol/L, 1 further point for lactate >= 4.0 mmol/L, 1 point for creatinine >= 150 umol/L and 1 point for a white cell count outside 4.0-12.0 x10^9/L. The label is therefore a noisy function of physiology the model cannot observe directly, not a deterministic threshold on the recorded columns.",
+  "features": [
+    {
+      "name": "heart_rate",
+      "unit": "bpm",
+      "dtype": "float"
+    },
+    {
+      "name": "systolic_bp",
+      "unit": "mmHg",
+      "dtype": "float"
+    },
+    {
+      "name": "diastolic_bp",
+      "unit": "mmHg",
+      "dtype": "float"
+    },
+    {
+      "name": "respiratory_rate",
+      "unit": "breaths/min",
+      "dtype": "float"
+    },
+    {
+      "name": "spo2",
+      "unit": "%",
+      "dtype": "float"
+    },
+    {
+      "name": "temperature",
+      "unit": "degC",
+      "dtype": "float"
+    },
+    {
+      "name": "wbc",
+      "unit": "10^9/L",
+      "dtype": "float"
+    },
+    {
+      "name": "lactate",
+      "unit": "mmol/L",
+      "dtype": "float"
+    },
+    {
+      "name": "creatinine",
+      "unit": "umol/L",
+      "dtype": "float"
+    },
+    {
+      "name": "age_years",
+      "unit": "years",
+      "dtype": "float"
+    }
+  ],
+  "files": {
+    "data/train.csv": "38be27eabff8a3d00022fcfdb5fa14c13e35324c6bf68b5d7d8d5d541273c81a",
+    "data/val.csv": "4b443b5a497c137ae6bfca3839855c5cbf70196800adf27cd7b580052d8f4af2",
+    "data/test.csv": "89ca1208458d5ae51f44ce8be38da7fdb5c28efde91e1e5b9a533b5a5ddafcf7"
+  }
+}

@@ -1,0 +1,4 @@
+# Artifacts in this repository are hashed and compared byte-for-byte by the
+# test suite. Disable all end-of-line translation so a checkout on Windows and
+# a checkout on Linux produce identical SHA-256 digests.
+* -text

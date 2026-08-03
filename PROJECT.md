@@ -60,15 +60,23 @@ Other corrections the verification produced:
 
 ## Measured results (toy repo, route annex_i, 2026-08-04)
 
+Subject: `examples/toy-deterioration-model` (vendored into this repo).
+
 | Metric | Target | Measured |
 |---|---|---|
 | Section coverage | 9/9 | **9/9** |
 | Evidence-backed claim ratio | ≥70% | **79.3%** (23/29) |
-| MEASURED share | ≥33.3% | **63.8%** (30/17) |
+| MEASURED share | ≥33.3% | **58.5%** (24/17) |
 | Zero silent assertions | 0 | **0** (independent audit) |
-| Citation resolution | 100% | **47/47** |
+| Citation resolution | 100% | **41/41** |
 | Gaps named | ≥3 | **6** (1 permanent) |
 | Determinism | identical | **byte-identical** |
+
+The example was developed as a standalone repository and is vendored here as
+plain files with its history preserved in `git-history.bundle`. Without a live
+`.git` it yields three fewer MEASURED citations (58.5% vs 63.8% with history
+restored); no gap register entry changes, because the git evidence was
+redundant with the CHANGELOG and manifests.
 
 All six targets met. One defect the measurement caught: every `attested_docs`
 source matched every requirement of its section, so 1(a) "intended purpose and

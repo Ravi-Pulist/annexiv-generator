@@ -4,11 +4,11 @@
 every claim cited to evidence, every gap flagged instead of hidden.**
 
 ```
-$ annexiv generate ./my-model --route annex_i --out ./pack
-annexiv 0.1.0 · toy-deterioration-model @ df2b1ee8dbb6
+$ annexiv generate examples/toy-deterioration-model --route annex_i --out ./pack
+annexiv 0.1.0 · toy-deterioration-model
 sections addressed: 9/9
 claims: 29 (23 evidence-backed, 6 gaps)
-evidence-backed ratio: 79.3% · MEASURED share: 63.8%
+evidence-backed ratio: 79.3% · MEASURED share: 58.5%
 gap register: 6 (1 permanent)
 ```
 
@@ -117,18 +117,25 @@ The thing that produces must not be the thing that approves.
 
 ## Measured results
 
-Generated from [the toy diagnostic model](#the-toy-model), a real repository
-with a real trained model, on 4 August 2026:
+Generated from [`examples/toy-deterioration-model`](examples/), a real
+repository with a real trained model, on 4 August 2026:
 
 | Metric | Target | **Measured** |
 |---|---|---|
 | Section coverage | 9/9 | **9/9** |
 | Evidence-backed claim ratio | ≥ 70% | **79.3%** (23/29) |
-| MEASURED share of citations | ≥ 33.3% | **63.8%** (30 measured / 17 attested) |
+| MEASURED share of citations | ≥ 33.3% | **58.5%** (24 measured / 17 attested) |
 | Zero silent assertions | 0, absolutely | **0** — confirmed by the independent audit |
-| Citation resolution | 100% | **47/47** |
+| Citation resolution | 100% | **41/41** |
 | Gaps named | ≥ 3 | **6** (1 permanent) |
 | Determinism | byte-identical | **byte-identical** pack and Markdown |
+
+The example is vendored as plain files, so it has no live `.git`; with its
+bundled history restored the MEASURED share is 63.8% and no gap register entry
+changes — see [`examples/README.md`](examples/README.md). The evidence git
+supplies is redundant with the CHANGELOG and manifests here, which is itself
+worth knowing: redundant evidence is what keeps a requirement covered when one
+source disappears.
 
 **Auditor mutation adequacy: 22/22.** The auditor is the component whose
 failure is invisible — a generator bug produces a wrong document, which
@@ -174,10 +181,12 @@ document that looks finished. This tool, given nothing, says so.
 
 ## The toy model
 
-A deliberately small deterioration early-warning classifier on **entirely
-synthetic** vitals and labs — 4,016 encounters after selection, seed-pinned,
-byte-reproducible. Its performance is deliberately modest and reported
-unflatteringly, with Wilson intervals:
+Ships in this repository at
+[`examples/toy-deterioration-model/`](examples/toy-deterioration-model/) — a
+deliberately small deterioration early-warning classifier on **entirely
+synthetic** vitals and labs, 4,016 encounters after selection, seed-pinned,
+byte-reproducible, with its own 37-test suite. Its performance is deliberately
+modest and reported unflatteringly, with Wilson intervals:
 
 | Metric | Value | 95% CI |
 |---|---|---|

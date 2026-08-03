@@ -1,0 +1,198 @@
+# Risk register for the toy deterioration early-warning screen.
+#
+# Machine-checkable on purpose: tests/test_repo.py asserts that every entry
+# carries all six fields and that status is one of open | mitigated | accepted.
+# A risk with an empty mitigation is a risk nobody has thought about yet, and
+# the schema will not let it hide behind prose.
+#
+# status meanings, used consistently:
+#   open      - identified, not yet controlled to an acceptable level
+#   mitigated - a control is in place and is believed effective
+#   accepted  - understood, not controlled, and the residual is accepted with
+#               a named owner. This is not a synonym for "closed".
+
+risks:
+  - id: R-01
+    description: >-
+      Alarm fatigue. On a cohort with a 13.7% positive rate, any threshold low
+      enough to reach a useful sensitivity flags a substantial share of the
+      ward. Wards that receive more flags than they can act on stop reading
+      them, and the screen becomes a liability precisely when it starts
+      working. The v0.2.0 operating point flags 330 of 805 test encounters --
+      about two in five -- at a PPV of 0.264, so roughly three of every four
+      bedside looks it generates find nothing. That is a substantial standing
+      workload for a screen that is only advisory.
+    owner: "S. Okonkwo"
+    status: open
+    mitigation: >-
+      The sensitivity target was set at 0.70 rather than higher after looking
+      at the alert-rate curve: 0.75 would cost a 61% alert rate and 0.80 a 70%
+      one, and a marker lit on most of the ward is not information. The
+      operating point is then chosen as the HIGHEST threshold meeting that
+      target rather than the lowest, so specificity is preserved as far as the
+      constraint allows; the alert rate is computed on validation and published
+      in eval/report.json under operating_point.rationale;
+      docs/human-oversight.md gives the clinical owner unilateral authority to
+      withdraw the screen from a ward. Residual risk remains high because
+      nothing measures the realised alert rate in service -- see R-07.
+    review_date: "2026-11-01"
+
+  - id: R-02
+    description: >-
+      Unknown subgroup performance. No accuracy breakdown by sex or age band
+      has been computed, so there is no evidence that the screen performs
+      comparably across the population it would be used on. A screen that is
+      materially less sensitive for one group would transfer that deficit
+      directly into differential escalation, and nothing in the current
+      evidence base would reveal it.
+    owner: "Dr. A. Nowak"
+    status: open
+    mitigation: >-
+      None in place. This is a knowing gap, recorded in docs/KNOWN-GAPS.md and
+      emitted as subgroup_breakdown: null in eval/report.json rather than
+      omitted. The interim control is negative: docs/model-card.md states that
+      the system makes no claim of comparable subgroup performance and that a
+      deployer must not assume it. The data supports the analysis -- sex and
+      age_years are recorded in every split -- so the obstacle is that it has
+      not been done, not that it cannot be.
+    review_date: "2026-11-01"
+
+  - id: R-03
+    description: >-
+      Automation bias in the negative direction. The dangerous failure is not
+      the false alarm; it is a clinician who intended to escalate, sees no
+      flag, and stands down. NPV is 0.949, which reads as reassuring until you
+      notice that a screen flagging nothing at all would score 0.862 on a 13.8%
+      base rate: one in twenty unflagged encounters still deteriorates. An
+      unannotated blank on a ward list carries far less information than it
+      appears to.
+    owner: "S. Okonkwo"
+    status: open
+    mitigation: >-
+      Interface requirement that the measured sensitivity and its confidence
+      interval are displayed alongside every result, so a negative is never
+      shown bare; local policy that a flag is never a precondition for
+      escalation; no record is kept of unactioned flags, so there is no
+      paperwork incentive to defer to the model. All three are procedural and
+      depend on a human noticing a drift in culture, which is why this is held
+      open rather than mitigated.
+    review_date: "2026-11-01"
+
+  - id: R-04
+    description: >-
+      Input drift. The model consumes recorded observations, and what a
+      recorded observation means depends on the device, the rounding
+      convention, and the charting default in force. A new monitor model, a
+      switch from manual to automated respiratory-rate capture, or a change in
+      a default that fills an unrecorded field would move the input
+      distribution without changing anything the model can see.
+    owner: "M. Ferreira"
+    status: open
+    mitigation: >-
+      input_schema.py pins the acceptance range of every field and rejects
+      out-of-range values rather than scoring them, which catches gross
+      unit and scale changes. It does not catch a distributional shift inside
+      the accepted range, which is the realistic case.
+      docs/human-oversight.md names "a change in how observations are recorded"
+      as a stop condition requiring the screen to be withdrawn pending
+      re-evaluation. There is no automated drift detection -- see R-07.
+    review_date: "2026-11-01"
+
+  - id: R-05
+    description: >-
+      Missing-vitals handling. Training-time cleaning replaces missing and
+      implausible cells with the training-split median, which makes a missing
+      observation look average. On a real ward a missing respiratory rate is
+      not average -- it is more likely on a busy shift with a sick patient, so
+      missingness is informative and the training data has had that
+      information removed from it.
+    owner: "M. Ferreira"
+    status: mitigated
+    mitigation: >-
+      Imputation is confined to training-data preparation and is not applied at
+      inference: EncounterFeatures in input_schema.py makes all ten fields
+      mandatory, so an incomplete encounter cannot be scored and the gap stays
+      visible to the clinician. docs/model-card.md instructs deployers to
+      escalate by the normal route rather than call the model when a value is
+      unavailable. Residual: performance where observations are patchy is
+      uncharacterised, and that is stated as a limitation rather than
+      estimated.
+    review_date: "2027-02-01"
+
+  - id: R-06
+    description: >-
+      Threshold miscalibration and threshold drift. The published sensitivity
+      is only valid at the published operating point. A local team that lowers
+      the threshold to "catch more" and continues to quote the documented
+      sensitivity is publishing a number that no longer describes the system.
+      The v0.1.0 baseline demonstrated the opposite failure: a default 0.50
+      cut-off produced 0.989 specificity and 0.279 sensitivity, a screen that
+      missed seven deteriorations in ten while looking statistically healthy.
+    owner: "M. Ferreira"
+    status: mitigated
+    mitigation: >-
+      The threshold is selected on the validation split only, never on test,
+      and is republished with its rationale in eval/report.json on every
+      evaluation; the returned ScreenResult carries the threshold in force
+      alongside the probability, so a changed operating point is visible to the
+      consumer; docs/model-card.md instructs that re-tuning requires re-running
+      eval/evaluate.py and re-attesting the report. Model and operating point
+      are kept as separate artefacts so "the model is unchanged, the threshold
+      moved" is a statement that can be made and checked.
+    review_date: "2026-11-01"
+
+  - id: R-07
+    description: >-
+      No post-market monitoring. There is no telemetry, no realised alert-rate
+      measurement, no outcome feedback and no drift detection. Every stop
+      condition in docs/human-oversight.md depends on a human noticing, and
+      several of the risks above name monitoring as the control they would
+      otherwise rely on. This risk is therefore load-bearing for R-01, R-03 and
+      R-04.
+    owner: "H. Bauer"
+    status: accepted
+    mitigation: >-
+      Accepted, not controlled. This is the second of the two deliberate
+      absences recorded in docs/KNOWN-GAPS.md. It is acceptable only because
+      the system is a demonstration artefact that is never deployed and never
+      sees a patient; for any real deployment this would be a blocking gap and
+      the residual would not be acceptable to this owner. Recorded here so that
+      the dependency of the other risks on the missing capability is explicit.
+    review_date: "2026-11-01"
+
+  - id: R-08
+    description: >-
+      Synthetic-to-real transfer. Every performance figure in this repository
+      describes the model's ability to recover a rule the same script wrote.
+      None of it is evidence about any real population. The specific hazard is
+      a reader who lifts the numbers in docs/model-card.md out of context and
+      presents them as clinical performance.
+    owner: "H. Bauer"
+    status: accepted
+    mitigation: >-
+      Every entry point states the constraint: README.md leads with it,
+      docs/model-card.md opens with it, data/manifest.json carries
+      synthetic_only: true, and tests/test_repo.py asserts both that flag and
+      the absence of anything resembling a real patient identifier anywhere in
+      the tree. The residual -- that a determined reader can still quote the
+      table out of context -- is accepted for a demonstration artefact.
+    review_date: "2027-02-01"
+
+  - id: R-09
+    description: >-
+      Artefact substitution. The model is distributed as a pickled joblib file,
+      which executes code on load. A substituted or tampered artefact would run
+      arbitrary code in the deployer's process, and a subtly altered one would
+      silently produce different clinical decisions under a documented digest.
+    owner: "J. Lindqvist"
+    status: mitigated
+    mitigation: >-
+      models/model.joblib is pinned by SHA-256 in custody/register.json and in
+      the CycloneDX 1.6 ML-BOM at custody/ml-bom.json; tests/test_repo.py fails
+      if the digest on disk does not match the register; docs/model-card.md
+      makes digest verification step 1 of the instructions for use. The full
+      pipeline is reproducible from source with pinned dependencies, so a third
+      party can rebuild the artefact and compare rather than trusting the
+      published digest. Residual: pickle remains an executable format and the
+      digest is not signed -- see docs/cybersecurity-measures.md.
+    review_date: "2026-11-01"

@@ -1,0 +1,11 @@
+# Pinned exactly. Reproducibility of the published SHA-256 digests in
+# data/manifest.json and custody/register.json is only claimed for this set.
+# Python 3.10.11
+numpy==2.2.6
+pandas==2.3.3
+scikit-learn==1.7.2
+joblib==1.5.3
+PyYAML==6.0.1
+pydantic==2.12.5
+GitPython==3.1.57
+pytest==8.4.2

@@ -1,0 +1,59 @@
+{
+  "report_version": "1.0",
+  "generated_from_commit": null,
+  "model_sha256": "6e9c8d7fc40aac6bced0f4e86517f47a120d31474bf9376a8ab00fc62c68c368",
+  "dataset_manifest_sha256": "e5f59498c403c56f0a66164899ac48544a4d02c443a8f5d4fc13471dcf2bbfda",
+  "seed": 20260804,
+  "split": {
+    "name": "test",
+    "n": 805,
+    "positive_rate": 0.137888
+  },
+  "metrics": {
+    "auroc": {
+      "value": 0.796804
+    },
+    "sensitivity": {
+      "value": 0.783784,
+      "ci_low": 0.698404,
+      "ci_high": 0.850178,
+      "n": 111,
+      "method": "wilson-95"
+    },
+    "specificity": {
+      "value": 0.649856,
+      "ci_low": 0.61363,
+      "ci_high": 0.684432,
+      "n": 694,
+      "method": "wilson-95"
+    },
+    "ppv": {
+      "value": 0.263636,
+      "ci_low": 0.219014,
+      "ci_high": 0.313698,
+      "n": 330,
+      "method": "wilson-95"
+    },
+    "npv": {
+      "value": 0.949474,
+      "ci_low": 0.925921,
+      "ci_high": 0.965814,
+      "n": 475,
+      "method": "wilson-95"
+    }
+  },
+  "confusion_matrix": {
+    "true_positive": 87,
+    "false_positive": 243,
+    "true_negative": 451,
+    "false_negative": 24
+  },
+  "operating_point": {
+    "threshold": 0.417586,
+    "rationale": "Chosen on the VALIDATION split only (802 encounters, 109 positive), never on test. Selected the highest threshold whose validation sensitivity still reaches the 70% target; that is 0.417586, achieving 0.706 sensitivity on validation and flagging 42.6% of validation encounters. Sensitivity is the constrained quantity and specificity is what is spent to buy it, because a missed deterioration is not recoverable by the next observation round whereas a false flag costs a clinician a bedside look. The 70% target and the resulting alert rate are a judgement call about alarm burden, not an optimum -- docs/metric-rationale.md sets out the reasoning and risk-log.yaml R-01 tracks the alarm-fatigue consequence."
+  },
+  "subgroup_breakdown": null,
+  "signed_by": "Dr. A. Nowak",
+  "role": "Clinical Lead, deterioration screen demonstrator",
+  "date": "2026-08-04"
+}
