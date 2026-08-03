@@ -1,5 +1,45 @@
 [
  {
+  "subject": "tests/test_end_to_end.py::test_generate_audit_and_determinism",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_the_two_deliberate_absences_are_named_not_papered_over",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_declaration_of_conformity_is_always_a_permanent_gap",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_markdown_states_the_route_date_and_the_boundary",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_no_route_declared_means_no_date_asserted",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_gaps_command_exit_codes",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_audit_cli_exit_codes",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_unknown_route_is_refused",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_renderer_refuses_a_section_with_no_claims",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_end_to_end.py::test_empty_repo_yields_all_gaps_and_no_prose",
+  "value": "pass"
+ },
+ {
   "subject": "tests/test_extractors.py::test_signed_document_yields_attested_evidence",
   "value": "pass"
  },
