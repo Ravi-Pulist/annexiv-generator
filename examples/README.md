@@ -60,24 +60,27 @@ python -m annexiv audit out/demo/pack.json --repo examples/toy-deterioration-mod
 
 This example was developed as its own repository with 12 commits and two
 release tags. It is vendored here as plain files so the generator repository
-tracks every one of them, and the original history is preserved alongside as
-**`git-history.bundle`**. To restore it:
+tracks every one of them, and the history travels alongside as
+**`git-history.bundle`**.
+
+**The generator reads that bundle directly** — no restore step is needed. With
+no live `.git` present, the git extractor clones the bundle to a temporary
+directory, reads the tags and commit history, and cites *the bundle file*.
+Annex IV 1(a)/1(c) (versions) and point 6 (lifecycle changes) are evidenced
+exactly as they would be from a checkout.
+
+This is deliberately the better of the two paths. A live `.git` is a
+directory: it has no content address, so those records carry the HEAD sha and
+`annexiv audit` cannot re-resolve them. The bundle is a file — it hashes, the
+auditor verifies it, and corrupting one byte fails the pack. The same
+citations become checkable rather than merely asserted.
+
+To browse the history as an ordinary repository:
 
 ```
 git clone git-history.bundle restored-with-history
 ```
 
-This matters for one measurement. Two Annex IV requirements can be evidenced
-from git — 1(a)/1(c) versions, and point 6 lifecycle changes — so the vendored
-copy, having no live `.git`, yields **three fewer MEASURED citations**:
-
-| | MEASURED share |
-|---|---|
-| Vendored copy (as shipped here) | **58.5%** |
-| With the bundled history restored | **63.8%** |
-
-**No requirement gaps either way.** The git evidence was redundant with the
-CHANGELOG (point 6) and the model card and dependency manifests (1(a), 1(c)),
-so losing it costs citation richness and nothing else. The shipped exhibit is
-generated from the vendored copy, so the exhibit and the example always
-describe the same thing.
+The shipped exhibit in `../exhibits/toy-model/` is generated from this
+directory as it stands, so the exhibit and the example always describe the
+same thing.

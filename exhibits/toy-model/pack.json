@@ -2,7 +2,7 @@
   "classification_route": "annex_i",
   "completion": {
     "citations_attested": 17,
-    "citations_measured": 24,
+    "citations_measured": 30,
     "claims_evidence_backed": 23,
     "claims_gapped": 6,
     "claims_total": 29,
@@ -212,6 +212,22 @@
     {
       "attested_by": null,
       "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "git",
+      "id": "ev_9bc122c9",
+      "locator": "history",
+      "provides": [
+        "git.lifecycle_changes"
+      ],
+      "role": null,
+      "source_path": "git-history.bundle",
+      "source_sha256": "4334fa105afdb5c04039d30739d42973394102cd8f8b48a507b00d5585bb0bff",
+      "summary": "12 commits from 1c29bd9a to df2b1ee8 documenting changes across the system's lifecycle (history bundle git-history.bundle)"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
       "commit": null,
       "date": null,
       "extractor": "dataset_manifest",
@@ -240,6 +256,23 @@
       "source_path": "risk-log.yaml",
       "source_sha256": "b60b840cfc5a5aa8203672aa00cd5d11c74da4d1ca5b58af8d9fbe4966c22cf9",
       "summary": "9 risks, each with owner, status, mitigation and review date (2 accepted, 3 mitigated, 4 open); owners: Dr. A. Nowak, H. Bauer, J. Lindqvist, M. Ferreira, S. Okonkwo"
+    },
+    {
+      "attested_by": null,
+      "cls": "MEASURED",
+      "commit": "df2b1ee8dbb65e23613b26abbf87ff11d74d291e",
+      "date": null,
+      "extractor": "git",
+      "id": "ev_afc06e09",
+      "locator": "tags",
+      "provides": [
+        "git.versions",
+        "git.version_relation"
+      ],
+      "role": null,
+      "source_path": "git-history.bundle",
+      "source_sha256": "4334fa105afdb5c04039d30739d42973394102cd8f8b48a507b00d5585bb0bff",
+      "summary": "2 released version(s) tagged: v0.1.0, v0.2.0; current version v0.2.0 (history bundle git-history.bundle)"
     },
     {
       "attested_by": null,
@@ -461,7 +494,9 @@
       "claims": [
         {
           "evidence_ids": [
-            "ev_528ec767"
+            "ev_528ec767",
+            "ev_9bc122c9",
+            "ev_afc06e09"
           ],
           "gap_id": null,
           "section": 1,
@@ -479,6 +514,8 @@
         },
         {
           "evidence_ids": [
+            "ev_9bc122c9",
+            "ev_afc06e09",
             "ev_ffe489fb"
           ],
           "gap_id": null,
@@ -726,7 +763,9 @@
       "claims": [
         {
           "evidence_ids": [
-            "ev_0a716a17"
+            "ev_0a716a17",
+            "ev_9bc122c9",
+            "ev_afc06e09"
           ],
           "gap_id": null,
           "section": 6,

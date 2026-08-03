@@ -214,6 +214,58 @@ def test_unpinned_requirements_are_called_out(repo):
     assert recs and "unpinned" in recs[0].summary
 
 
+def test_history_bundle_yields_git_evidence_addressed_to_the_file(tmp_path):
+    """A vendored bundle restores git evidence AND makes it auditable.
+
+    Records from a live .git carry the HEAD sha as their address, which the
+    auditor cannot re-resolve. A bundle is a file: it hashes, so the same
+    claims become verifiable rather than merely asserted.
+    """
+    import subprocess
+
+    from annexiv.extractors.gitlog import extract as extract_git
+
+    # build a small real repository, then bundle it
+    src = tmp_path / "src"
+    src.mkdir()
+    run = lambda *a: subprocess.run(["git", *a], cwd=src, capture_output=True,
+                                    check=True)
+    run("init", "-q")
+    run("config", "user.email", "t@example.com")
+    run("config", "user.name", "T")
+    for i in range(4):
+        (src / f"f{i}.txt").write_text(str(i), encoding="utf-8")
+        run("add", "-A")
+        run("-c", "core.autocrlf=false", "commit", "-q", "-m", f"commit {i}")
+    run("tag", "v0.1.0")
+    bundle = tmp_path / "vendored" / "git-history.bundle"
+    bundle.parent.mkdir()
+    subprocess.run(["git", "bundle", "create", str(bundle), "--all"],
+                   cwd=src, capture_output=True, check=True)
+
+    # the vendored copy has no .git at all
+    vendored = RepoContext(bundle.parent)
+    assert not vendored.is_git
+
+    recs = extract_git(vendored)
+    assert recs, "a bundle must restore git-derived evidence"
+    provides = {k for r in recs for k in r.provides}
+    assert {"git.versions", "git.lifecycle_changes"} <= provides
+
+    for r in recs:
+        assert r.source_path == "git-history.bundle"
+        assert r.source_sha256 == vendored.sha256("git-history.bundle")
+        assert "history bundle" in r.summary, (
+            "the record must say the history came from a bundle, not imply a "
+            "live repository")
+
+
+def test_unreadable_bundle_is_not_an_error(tmp_path):
+    from annexiv.extractors.gitlog import extract as extract_git
+    (tmp_path / "broken.bundle").write_text("not a bundle", encoding="utf-8")
+    assert extract_git(RepoContext(tmp_path)) == []
+
+
 def test_input_schema_is_parsed_statically_not_imported(repo):
     write(repo, "input_schema.py",
           "raise RuntimeError('importing this would be a bug')\n"

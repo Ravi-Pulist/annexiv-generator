@@ -124,18 +124,30 @@ repository with a real trained model, on 4 August 2026:
 |---|---|---|
 | Section coverage | 9/9 | **9/9** |
 | Evidence-backed claim ratio | ≥ 70% | **79.3%** (23/29) |
-| MEASURED share of citations | ≥ 33.3% | **58.5%** (24 measured / 17 attested) |
+| MEASURED share of citations | ≥ 33.3% | **63.8%** (30 measured / 17 attested) |
 | Zero silent assertions | 0, absolutely | **0** — confirmed by the independent audit |
-| Citation resolution | 100% | **41/41** |
+| Citation resolution | 100% | **47/47** |
 | Gaps named | ≥ 3 | **6** (1 permanent) |
 | Determinism | byte-identical | **byte-identical** pack and Markdown |
 
-The example is vendored as plain files, so it has no live `.git`; with its
-bundled history restored the MEASURED share is 63.8% and no gap register entry
-changes — see [`examples/README.md`](examples/README.md). The evidence git
-supplies is redundant with the CHANGELOG and manifests here, which is itself
-worth knowing: redundant evidence is what keeps a requirement covered when one
-source disappears.
+### History without a `.git` — and why the citations get *better*
+
+The example is vendored as plain files, so it has no live `.git`. Git-derived
+evidence is not lost: the extractor falls back to a **history bundle**
+(`git bundle create`) shipped alongside it, which is the common shape of a
+client engagement anyway — repositories arrive as exports far more often than
+as live clones, and exports routinely omit `.git`.
+
+The fallback is not a consolation prize. A live `.git` is a *directory*, so it
+has no content address; records drawn from it carry the HEAD sha and
+**`annexiv audit` has to skip re-resolving them** — git-derived claims are the
+least verifiable ones in a pack built from a checkout. A bundle is a *file*:
+it hashes, the auditor re-resolves it like any other evidence, and tampering
+fails the pack. Corrupting a byte of the bundle turns the audit red on all six
+affected citations.
+
+So the same claims survive the move **and become checkable**, which is the
+direction this tool is supposed to push everything.
 
 **Auditor mutation adequacy: 22/22.** The auditor is the component whose
 failure is invisible — a generator bug produces a wrong document, which

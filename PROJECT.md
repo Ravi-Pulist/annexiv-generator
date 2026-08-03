@@ -66,17 +66,21 @@ Subject: `examples/toy-deterioration-model` (vendored into this repo).
 |---|---|---|
 | Section coverage | 9/9 | **9/9** |
 | Evidence-backed claim ratio | ≥70% | **79.3%** (23/29) |
-| MEASURED share | ≥33.3% | **58.5%** (24/17) |
+| MEASURED share | ≥33.3% | **63.8%** (30/17) |
 | Zero silent assertions | 0 | **0** (independent audit) |
-| Citation resolution | 100% | **41/41** |
+| Citation resolution | 100% | **47/47** |
 | Gaps named | ≥3 | **6** (1 permanent) |
 | Determinism | identical | **byte-identical** |
 
-The example was developed as a standalone repository and is vendored here as
-plain files with its history preserved in `git-history.bundle`. Without a live
-`.git` it yields three fewer MEASURED citations (58.5% vs 63.8% with history
-restored); no gap register entry changes, because the git evidence was
-redundant with the CHANGELOG and manifests.
+The example is vendored as plain files with its history as
+`git-history.bundle`. Vendoring initially cost three git-derived citations
+(58.5%); rather than accept that, the git extractor now falls back to reading
+a bundle, which restores them **and improves them** — bundle-sourced records
+are content-addressed to a hashable file the auditor re-resolves, whereas
+live-`.git` records carry a directory's HEAD sha that the auditor must skip.
+Verified: corrupting one byte of the bundle turns the audit red on all six
+affected citations. The fallback also matches the real engagement shape, where
+client repositories arrive as exports without `.git`.
 
 All six targets met. One defect the measurement caught: every `attested_docs`
 source matched every requirement of its section, so 1(a) "intended purpose and

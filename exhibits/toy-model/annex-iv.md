@@ -23,9 +23,9 @@ As at 2026-08-04, the Annex IV documentation duty is **not yet applicable**. Cha
 | Claims total | 29 |
 | Claims backed by evidence | 23 (79.3%) |
 | Claims flagged as gaps | 6 |
-| Citations — MEASURED | 24 |
+| Citations — MEASURED | 30 |
 | Citations — ATTESTED | 17 |
-| MEASURED share of citations | 58.5% |
+| MEASURED share of citations | 63.8% |
 | Gaps in the register | 6 (1 permanent) |
 
 Every claim below carries either a citation or a gap reference. There is no third kind of sentence in this document: the claim type has no constructor for an unsupported assertion.
@@ -51,6 +51,8 @@ Every claim below carries either a citation or a gap reference. There is no thir
 **1(a)** — its intended purpose, the name of the provider and the version of the system reflecting its relation to previous versions;
 
 - [`ATTESTED`] `docs/model-card.md#front-matter:model_card` (`9d7850789897…`, `ev_528ec767`) — model card signed by Dr. A. Nowak (Clinical Lead) on 2026-08-04
+- [`MEASURED`] `git-history.bundle#history` (`4334fa105afd…`, `ev_9bc122c9`) — 12 commits from 1c29bd9a to df2b1ee8 documenting changes across the system's lifecycle (history bundle git-history.bundle)
+- [`MEASURED`] `git-history.bundle#tags` (`4334fa105afd…`, `ev_afc06e09`) — 2 released version(s) tagged: v0.1.0, v0.2.0; current version v0.2.0 (history bundle git-history.bundle)
 
 **1(b)** — how the AI system interacts with, or can be used to interact with, hardware or software, including with other AI systems, that are not part of the AI system itself, where applic…
 
@@ -58,6 +60,8 @@ Every claim below carries either a citation or a gap reference. There is no thir
 
 **1(c)** — the versions of relevant software or firmware, and any requirements related to version updates;
 
+- [`MEASURED`] `git-history.bundle#history` (`4334fa105afd…`, `ev_9bc122c9`) — 12 commits from 1c29bd9a to df2b1ee8 documenting changes across the system's lifecycle (history bundle git-history.bundle)
+- [`MEASURED`] `git-history.bundle#tags` (`4334fa105afd…`, `ev_afc06e09`) — 2 released version(s) tagged: v0.1.0, v0.2.0; current version v0.2.0 (history bundle git-history.bundle)
 - [`MEASURED`] `requirements.txt#dependencies` (`74f13bb2d7aa…`, `ev_ffe489fb`) — third-party components declared in requirements.txt: 8/8 dependencies pinned to exact versions
 
 **1(d)** — the description of all the forms in which the AI system is placed on the market or put into service, such as software packages embedded into hardware, downloads, or APIs;
@@ -192,6 +196,8 @@ Every claim below carries either a citation or a gap reference. There is no thir
 **6** — A description of relevant changes made by the provider to the system through its lifecycle;
 
 - [`MEASURED`] `CHANGELOG.md#versions` (`30a61cf68ef1…`, `ev_0a716a17`) — 2 released version(s) with described changes: 0.2.0, 0.1.0
+- [`MEASURED`] `git-history.bundle#history` (`4334fa105afd…`, `ev_9bc122c9`) — 12 commits from 1c29bd9a to df2b1ee8 documenting changes across the system's lifecycle (history bundle git-history.bundle)
+- [`MEASURED`] `git-history.bundle#tags` (`4334fa105afd…`, `ev_afc06e09`) — 2 released version(s) tagged: v0.1.0, v0.2.0; current version v0.2.0 (history bundle git-history.bundle)
 
 ## 7. Harmonised standards applied, or alternative solutions
 
@@ -266,8 +272,10 @@ Every claim below carries either a citation or a gap reference. There is no thir
 | `ev_7b1ba4b3` | MEASURED | `input_schema.py#class:EncounterFeatures` | `0fe8caec7cde…` | input_schema | — |
 | `ev_86120b62` | MEASURED | `custody/ml-bom.json#bom` | `0b1687d5410b…` | custody | — |
 | `ev_95567c1f` | ATTESTED | `docs/cybersecurity-measures.md#front-matter:cybersecurity_measures` | `8260aa6b21f9…` | attested_docs | J. Lindqvist (Information Security Officer), 2026-08-04 |
+| `ev_9bc122c9` | MEASURED | `git-history.bundle#history` | `4334fa105afd…` | git | — |
 | `ev_a2bc50c9` | MEASURED | `data/manifest.json#generator_sha256` | `e5f59498c403…` | dataset_manifest | — |
 | `ev_af47f796` | ATTESTED | `risk-log.yaml#risks` | `b60b840cfc5a…` | risk_log | Dr. A. Nowak (risk owner), 2026-11-01 |
+| `ev_afc06e09` | MEASURED | `git-history.bundle#tags` | `4334fa105afd…` | git | — |
 | `ev_b3f42b7c` | MEASURED | `eval/report.json#signature` | `a1567d51845d…` | eval_report | — |
 | `ev_ba16b846` | ATTESTED | `docs/design-rationale.md#front-matter:design_rationale` | `a23eda3b7d44…` | attested_docs | M. Ferreira (Machine Learning Lead), 2026-08-04 |
 | `ev_bdbb246e` | MEASURED | `data/manifest.json#selection` | `e5f59498c403…` | dataset_manifest | — |
