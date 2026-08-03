@@ -1,0 +1,292 @@
+[
+  {
+    "id": "gap_822f1291",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "its intended purpose, the name of the provider and the version of the system reflecting its relation to previous versions;",
+    "section": 1,
+    "subpoint": "a"
+  },
+  {
+    "id": "gap_a3ad8847",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "how the AI system interacts with, or can be used to interact with, hardware or software, including with other AI systems, that are not part of the AI system itself, where applicable;",
+    "section": 1,
+    "subpoint": "b"
+  },
+  {
+    "id": "gap_30003bcf",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no tagged release history or changelog documents changes over the system's lifecycle",
+    "remediation": "tag releases and maintain a CHANGELOG describing what changed between them",
+    "requirement": "the versions of relevant software or firmware, and any requirements related to version updates;",
+    "section": 1,
+    "subpoint": "c"
+  },
+  {
+    "id": "gap_7698157e",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the description of all the forms in which the AI system is placed on the market or put into service, such as software packages embedded into hardware, downloads, or APIs;",
+    "section": 1,
+    "subpoint": "d"
+  },
+  {
+    "id": "gap_a7bc8652",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the description of the hardware on which the AI system is intended to run;",
+    "section": 1,
+    "subpoint": "e"
+  },
+  {
+    "id": "gap_d6449208",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no evidence source in this repository covers this requirement",
+    "remediation": "produce the artefact named in the mapping spec for this section",
+    "requirement": "where the AI system is a component of products, photographs or illustrations showing external features, the marking and internal layout of those products;",
+    "section": 1,
+    "subpoint": "f"
+  },
+  {
+    "id": "gap_ccc4e7a8",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "a basic description of the user-interface provided to the deployer;",
+    "section": 1,
+    "subpoint": "g"
+  },
+  {
+    "id": "gap_9f9148ba",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "instructions for use for the deployer, and a basic description of the user-interface provided to the deployer, where applicable;",
+    "section": 1,
+    "subpoint": "h"
+  },
+  {
+    "id": "gap_abf7ce63",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no model custody register found",
+    "remediation": "pin each model by checkpoint SHA-256 with its licence, and emit a CycloneDX ML-BOM",
+    "requirement": "the methods and steps performed for the development of the AI system, including, where relevant, recourse to pre-trained systems or tools provided by third parties and how those were used, integrated or modified by the provider;",
+    "section": 2,
+    "subpoint": "a"
+  },
+  {
+    "id": "gap_d2354d92",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the design specifications of the system, namely the general logic of the AI system and of the algorithms; the key design choices including the rationale and assumptions made, including with regard to persons or groups of persons in respect of who, the system is intended to be used; the main classification choices; what the system is designed to optimise for, and the relevance of the different parameters; the description of the expected output and output quality of the system; the decisions about any possible trade-off made regarding the technical solutions adopted to comply with the requirements set out in Chapter III, Section 2;",
+    "section": 2,
+    "subpoint": "b"
+  },
+  {
+    "id": "gap_9e53f4d6",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no evidence source in this repository covers this requirement",
+    "remediation": "produce the artefact named in the mapping spec for this section",
+    "requirement": "the description of the system architecture explaining how software components build on or feed into each other and integrate into the overall processing; the computational resources used to develop, train, test and validate the AI system;",
+    "section": 2,
+    "subpoint": "c"
+  },
+  {
+    "id": "gap_19347c9d",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "where relevant, the data requirements in terms of datasheets describing the training methodologies and techniques and the training data sets used, including a general description of these data sets, information about their provenance, scope and main characteristics; how the data was obtained and selected; labelling procedures (e.g. for supervised learning), data cleaning methodologies (e.g. outliers detection);",
+    "section": 2,
+    "subpoint": "d"
+  },
+  {
+    "id": "gap_90c42f49",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "assessment of the human oversight measures needed in accordance with Article 14, including an assessment of the technical measures needed to facilitate the interpretation of the outputs of AI systems by the deployers, in accordance with Article 13(3), point (d);",
+    "section": 2,
+    "subpoint": "e"
+  },
+  {
+    "id": "gap_ae058556",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "where applicable, a detailed description of pre-determined changes to the AI system and its performance, together with all the relevant information related to the technical solutions adopted to ensure continuous compliance of the AI system with the relevant requirements set out in Chapter III, Section 2;",
+    "section": 2,
+    "subpoint": "f"
+  },
+  {
+    "id": "gap_915c5e1e",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no evaluation report covers this requirement",
+    "remediation": "run the evaluation harness on a held-out split and commit the report with metrics and confidence intervals",
+    "requirement": "the validation and testing procedures used, including information about the validation and testing data used and their main characteristics; metrics used to measure accuracy, robustness and compliance with other relevant requirements set out in Chapter III, Section 2, as well as potentially discriminatory impacts; test logs and all test reports dated and signed by the responsible persons, including with regard to pre-determined changes as referred to under point (f);",
+    "section": 2,
+    "subpoint": "g"
+  },
+  {
+    "id": "gap_3a4a74f8",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "cybersecurity measures put in place;",
+    "section": 2,
+    "subpoint": "h"
+  },
+  {
+    "id": "gap_ae985225",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "human oversight measures needed in accordance with Article 14",
+    "section": 3,
+    "subpoint": "human_oversight"
+  },
+  {
+    "id": "gap_a3f917aa",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no typed input specification found",
+    "remediation": "declare the inference input as a typed schema with field names, units and ranges",
+    "requirement": "specifications on input data, as appropriate",
+    "section": 3,
+    "subpoint": "input_specifications"
+  },
+  {
+    "id": "gap_fa80a269",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the overall expected level of accuracy in relation to the intended purpose",
+    "section": 3,
+    "subpoint": "overall_accuracy"
+  },
+  {
+    "id": "gap_e54f2c3e",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "the evaluation report contains no per-subgroup accuracy breakdown (the file is present; this section of it is not)",
+    "remediation": "compute and record accuracy per relevant subgroup in the eval report's subgroup_breakdown field",
+    "requirement": "the degrees of accuracy for specific persons or groups of persons on which the system is intended to be used",
+    "section": 3,
+    "subpoint": "subgroup_accuracy"
+  },
+  {
+    "id": "gap_bc19b524",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "foreseeable unintended outcomes and sources of risk to health, safety, fundamental rights, discrimination",
+    "section": 3,
+    "subpoint": "unintended_outcomes"
+  },
+  {
+    "id": "gap_dc7fd53f",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "A description of the appropriateness of the performance metrics for the specific AI system;",
+    "section": 4,
+    "subpoint": "whole"
+  },
+  {
+    "id": "gap_3f79ce5f",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no structured risk log found in the repository",
+    "remediation": "add a risk-log.yaml with one entry per risk carrying id, description, owner, status, mitigation and review_date",
+    "requirement": "A detailed description of the risk management system in accordance with Article 9;",
+    "section": 5,
+    "subpoint": "whole"
+  },
+  {
+    "id": "gap_579c72a0",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no tagged release history or changelog documents changes over the system's lifecycle",
+    "remediation": "tag releases and maintain a CHANGELOG describing what changed between them",
+    "requirement": "A description of relevant changes made by the provider to the system through its lifecycle;",
+    "section": 6,
+    "subpoint": "whole"
+  },
+  {
+    "id": "gap_c607b08c",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "where none applied: description of the solutions adopted, plus other standards/specifications applied",
+    "section": 7,
+    "subpoint": "alternative_solutions"
+  },
+  {
+    "id": "gap_f057abf1",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "list of harmonised standards applied in full or in part",
+    "section": 7,
+    "subpoint": "standards_applied"
+  },
+  {
+    "id": "gap_57fe78de",
+    "kind": "by_design",
+    "permanent": true,
+    "reason": "The EU declaration of conformity is a legal act executed by the provider under Article 47. It is not derivable from a repository and this tool will never generate, draft or template it. Flagged as a permanent by-design gap in every pack, including packs that are otherwise complete.",
+    "remediation": "the provider draws up and signs the EU declaration of conformity itself; this tool will never generate, draft or template it",
+    "requirement": "A copy of the EU declaration of conformity referred to in Article 47;",
+    "section": 8,
+    "subpoint": null
+  },
+  {
+    "id": "gap_70e3fe82",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the system in place to evaluate post-market performance (Article 72)",
+    "section": 9,
+    "subpoint": "evaluation_system"
+  },
+  {
+    "id": "gap_c6431286",
+    "kind": "absent",
+    "permanent": false,
+    "reason": "no signed document in the repository covers this requirement",
+    "remediation": "add a Markdown document under docs/ with front-matter naming the attester, their role and the date",
+    "requirement": "the post-market monitoring plan (Article 72(3)) — a distinct named artefact",
+    "section": 9,
+    "subpoint": "monitoring_plan"
+  }
+]

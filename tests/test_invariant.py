@@ -211,3 +211,25 @@ def test_defect_unparseable_pack_is_caught(tmp_path):
     p.write_text("{not json", encoding="utf-8")
     res = audit_pack(p, tmp_path)
     assert not res.ok
+
+
+def test_defect_pack_with_no_sections_is_caught(planted):
+    # A pack stripped of every section has nothing to contradict and would
+    # otherwise sail through: no claims to check means no failures to find.
+    pack, write, repo = planted
+    pack["sections"] = []
+    res = audit_pack(write(pack), repo)
+    assert not res.ok
+    assert any(f.check == "sections-present" for f in res.failed)
+
+
+def test_audit_result_ok_reflects_failures_not_warnings(planted):
+    # A warning must not fail the pack, and a failure must not be softened
+    # into a warning: the distinction is what makes exit code 1 trustworthy.
+    pack, write, repo = planted
+    pack["gaps"].append({"id": "gap_unused", "section": 9, "subpoint": None,
+                         "requirement": "r", "reason": "why", "kind": "absent",
+                         "permanent": False, "remediation": "do it"})
+    res = audit_pack(write(pack), repo)
+    assert res.ok, "an unreferenced gap is a warning, not a failure"
+    assert any(f.severity == "warn" for f in res.findings)

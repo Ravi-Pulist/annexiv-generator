@@ -1,0 +1,121 @@
+{
+  "target": "src/annexiv/audit.py",
+  "oracle": [
+    "tests/test_invariant.py"
+  ],
+  "mutants": [
+    {
+      "id": "silent_assertion_blind#0",
+      "site": "line 116: 'if not ev_ids and not gap_id:' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "both_refs_blind#0",
+      "site": "line 111: 'if ev_ids and gap_id:' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#0",
+      "site": "line 53: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#1",
+      "site": "line 80: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#2",
+      "site": "line 90: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#3",
+      "site": "line 102: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#4",
+      "site": "line 113: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#5",
+      "site": "line 118: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#6",
+      "site": "line 129: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#7",
+      "site": "line 141: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#8",
+      "site": "line 160: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#9",
+      "site": "line 168: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "severity_downgrade#10",
+      "site": "line 182: '\"fail\"' -> '\"warn\"'",
+      "killed": true
+    },
+    {
+      "id": "missing_file_blind#0",
+      "site": "line 158: 'if not target.is_file():' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "hash_check_inverted#0",
+      "site": "line 166: 'actual.lower() !=' -> 'actual.lower() =='",
+      "killed": true
+    },
+    {
+      "id": "dangling_citation_blind#0",
+      "site": "line 139: 'if rec is None:' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "dangling_gap_blind#0",
+      "site": "line 127: 'if gap_id not in gaps:' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "empty_section_blind#0",
+      "site": "line 100: 'if not section.get(\"claims\"):' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "count_check_blind#0",
+      "site": "line 180: 'if key in stated and stated[key] != counted:' -> 'if False:'",
+      "killed": true
+    },
+    {
+      "id": "ok_always_true#0",
+      "site": "line 57: 'return not self.failed' -> 'return True'",
+      "killed": true
+    },
+    {
+      "id": "failed_always_empty#0",
+      "site": "line 53: 'return [f for f in self.findings if f.severity == \"fail\"]' -> 'return []'",
+      "killed": true
+    },
+    {
+      "id": "skip_all_claims#0",
+      "site": "line 105: 'for claim in section.get(\"claims\", []):' -> 'for claim in []:'",
+      "killed": true
+    }
+  ],
+  "killed": 22,
+  "survived": 0,
+  "score": "22/22"
+}
