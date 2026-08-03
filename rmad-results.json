@@ -1,0 +1,234 @@
+[
+ {
+  "subject": "tests/test_extractors.py::test_signed_document_yields_attested_evidence",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_unsigned_document_yields_nothing_and_is_reported",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_plain_prose_without_front_matter_is_not_an_attestation",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_eval_report_with_null_subgroup_does_not_provide_subgroup_accuracy",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_eval_report_with_subgroups_does_provide_it",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_eval_report_notes_absence_of_intervals",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_missing_eval_report_yields_nothing_without_raising",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_complete_risk_log_yields_attested_evidence",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_risk_log_missing_owner_is_structurally_invalid_not_weak_evidence",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_absent_risk_log_is_reported_as_absent",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_dataset_manifest_hash_mismatch_is_detected",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_dataset_manifest_matching_hash_is_clean",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_manifest_listing_an_absent_file_is_a_mismatch",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_stale_custody_pin_is_detected",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_cyclonedx_bom_is_recognised",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_unpinned_requirements_are_called_out",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_extractors.py::test_input_schema_is_parsed_statically_not_imported",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_claim_with_neither_evidence_nor_gap_is_unconstructable",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_claim_with_both_evidence_and_gap_is_unconstructable",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_supported_requires_at_least_one_record",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_supported_and_gap_constructors_work",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_attested_refuses_anonymous_prose",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_attested_refuses_undated_signature",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_attested_refuses_roleless_signature",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_evidence_ids_are_content_addressed_and_collision_resistant",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_clean_pack_passes",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_silent_assertion_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_claim_citing_both_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_dangling_citation_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_deleted_evidence_file_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_tampered_evidence_file_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_broken_hash_in_pack_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_dangling_gap_reference_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_deleted_gap_register_entry_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_inflated_completion_counts_are_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_emptied_section_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_unparseable_pack_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_defect_pack_with_no_sections_is_caught",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_invariant.py::test_audit_result_ok_reflects_failures_not_warnings",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_annex_iv_has_exactly_nine_top_level_points",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_only_points_one_and_two_carry_lettered_subpoints",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_points_three_seven_nine_decompositions_are_flagged_as_ours",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_declaration_of_conformity_is_a_permanent_gap_with_no_sources",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_article_cross_references_match_the_verified_text",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_risk_management_cites_article_nine",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_post_market_section_cites_both_72_and_72_3",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_subgroup_accuracy_is_its_own_requirement",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_subgroup_requirement_demands_a_capability_key",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_lifecycle_changes_distinct_from_predetermined_changes",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_annex_iv_duty_is_not_yet_in_force",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_route_dates_are_the_deferred_ones",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_healthcare_diagnosis_routes_via_annex_i_not_annex_iii",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_unknown_route_yields_no_date",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_loader_refuses_a_spec_with_the_wrong_section_count",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_loader_refuses_a_permanent_gap_that_declares_evidence",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_loader_refuses_a_section_with_no_route_to_evidence",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_loader_refuses_a_source_supporting_an_unknown_requirement",
+  "value": "pass"
+ },
+ {
+  "subject": "tests/test_spec.py::test_spec_is_hashed_so_a_pack_records_which_reading_produced_it",
+  "value": "pass"
+ }
+]

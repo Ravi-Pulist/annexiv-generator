@@ -1,0 +1,6 @@
+tenant: annexiv-generator
+jurisdiction: global
+mode: enforce
+retention:
+  audit_days: 2190
+  logs_days: 2190
