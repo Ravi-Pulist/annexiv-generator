@@ -58,17 +58,38 @@ Other corrections the verification produced:
 - 68 tests green; **auditor mutation adequacy 22/22**
 - Empty-repo exhibit: 9/9 sections addressed, 29 gaps, zero prose
 
+## Measured results (toy repo, route annex_i, 2026-08-04)
+
+| Metric | Target | Measured |
+|---|---|---|
+| Section coverage | 9/9 | **9/9** |
+| Evidence-backed claim ratio | ≥70% | **79.3%** (23/29) |
+| MEASURED share | ≥33.3% | **63.8%** (30/17) |
+| Zero silent assertions | 0 | **0** (independent audit) |
+| Citation resolution | 100% | **47/47** |
+| Gaps named | ≥3 | **6** (1 permanent) |
+| Determinism | identical | **byte-identical** |
+
+All six targets met. One defect the measurement caught: every `attested_docs`
+source matched every requirement of its section, so 1(a) "intended purpose and
+provider name" cited the cybersecurity and standards documents. Gating the
+sources by document type took citations from 150 to 47 and raised the MEASURED
+share from 20.0% to 63.8% — the earlier figure was spurious attested citations
+crowding out machine-derived ones.
+
 ## Completion predicate (rmad task ANNEX-1) — honest residual
 
 ```
-NOT DONE (6/6 evaluated)  R = 42   commit dd61657a
+NOT DONE (6/6 evaluated)  R = 58   commit d35ab60f
 O1 FAIL  10 criteria have no passing test at this commit   +30
-O2 FAIL  66/78 blast-radius symbols covered; 12 uncovered  +12
+O2 FAIL  66/94 blast-radius symbols covered; 28 uncovered  +28
 O3 ok    baseline holds (68 passing)
 O4 ok    no structural debt vs snapshot
 O5 ok    scope respected
 O6 ok    observed running (smoke at this commit)
 ```
+
+`rmad doctor`: **HEALTHY, 73 passed / 0 failed**.
 
 - **O1** — RMAD's own BENCHMARK.md records this join as open: pytest node-ids
   and graph test symbols do not join, so no criterion can be "realised" from a
